@@ -14,7 +14,7 @@ Pick-A-Trail, clone of the All Trails App - a guide for outdoor recreational act
     - Admin User
 
 # Features of the APP
-* Use can signUp/ Login
+* User can signUp/ Login
 * Use OAuth for Authentication and JSON web tokens
 * List the trails
 * Add trails to completed, favorites, saved, etc
@@ -150,6 +150,7 @@ Run a periodic query to delete when both completed/ saved  are set to false
     * Name
     * Message
     * Review
+    * Likes (Array of UserIds)
     * Location (CHECK THIS)
 
 - Comments
@@ -157,12 +158,6 @@ Run a periodic query to delete when both completed/ saved  are set to false
     * ActivityId (Foreign Key)
     * UserId (Foreign Key)
     * Comment
-    * DateTime
-
-- Likes
-    * Id
-    * ActivityId (Foreign Key)
-    * UserId (Foreign Key)
     * DateTime
 
 TODO:
