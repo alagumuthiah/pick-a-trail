@@ -2,6 +2,19 @@
 
 Embark on your next outdoor adventure with ease using the Pick-A-Trail app. Explore a vast network of trails, from serene walks to rugged hikes effortlessly. Get detailed trail information, track your progress, and share your experiences with a community of fellow nature enthusiasts.
 
+## Project setup
+
+To run the application locally:
+1. Git clone the repo `https://github.com/alagumuthiah/pick-a-trail.git`
+2. Run `npm install` in both frontend and backend folders to install the required packages for the application.
+3. Create a .env file with the configuration for the database.
+4. Create the database using sequelize - `npx sequelize db:create`
+5. Run `npx sequelize db:migrate` to migrate the database.
+6. Run `npx sequelize db:seed:all` to seed the database(populate the data)
+7. Run npm start in the backend folder to start our Express server.
+8. run npm start in the frontend folder to start the React frontend server.
+9. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
 ## Technologies USed
 
 **FrontEnd**
@@ -46,9 +59,9 @@ TBD
 | hashedPassword | VAR CHAR      | NOT NULL         |
 | Followers      | INTEGER []    |                  |
 | Following      | INTEGER []    |                  |
-| adminUser      | BOOLEAN       | NOT NULL         |
+| isAdmin      | BOOLEAN       | NOT NULL         |
 
-
+- `User` hasMany Lists.
 
 ## Parks
 | Column Name    | DataType   | Constraints  |
@@ -144,9 +157,9 @@ TBD
 | id           | INTEGER  | PK, NOT NULL |
 | UserId       | INTEGER  | NOT NULL, FK |
 | ActivityId   | INTEGER  | NOT NULL, FK |
-| comment      | VAR CHAR |              |
+| comments     | VAR CHAR |              |
 | createdAt    | DATETIME |              |
 
 - `UserId` references `Users` table
-- `TrailId` references `Trails` table
-- `Comments` is a through relation between `Users` and `Trails`
+- `ActivityId` references `Activity` table
+- `Comments` is a through relation between `Users` and `Activity`
