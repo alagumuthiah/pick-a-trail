@@ -1,7 +1,15 @@
 import express from 'express';
-
+import passport from 'passport';
+import sessionRoute from './routes/api/session';
+import session from 'express-session';
 const app = express();
+require('./utils/passport');
 
+app.use(session({ secret: 'secretKey', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/auth', sessionRoute);
 
 app.listen(3000, () => {
     console.log('Server listening');
