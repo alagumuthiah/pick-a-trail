@@ -1,0 +1,9 @@
+.footer__section{
+    background-color:#142800 ;
+    width:100%;
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    height:150px;
+    color:white
+}

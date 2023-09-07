@@ -1,0 +1,17 @@
+.header__section{
+    background-color: #2c5601;
+    color:white;
+    width:100%;
+    position:fixed;
+    font-family: Manrope,Arial,sans-serif;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.link--navbar{
+    font-size: 16px;
+    color:white;
+    text-decoration: none;
+}
