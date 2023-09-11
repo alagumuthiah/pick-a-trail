@@ -40,126 +40,20 @@ To run the application locally:
 
 ## Features of the App
 
-TBD
+* User can signUp/ Login
+* Use OAuth for Authentication and JSON web tokens
+* List the trails
+* Add trails to completed, favorites, saved, etc
+* Search
+* Include the weather forecast for the following week for the trails - Optional
+* Community feature
+    1. Local - fetched based on the location and recently added activity
+    2. Community - fetched based on the following user's activities and recently added activities
+ 
 
-## User Stories
+## Link to Wiki docs
 
-TBD
-
-## DB Schema
-
-## Users
-| Column Name    | DataType      | Constraints      |
-|----------------|---------------|------------------|
-| id             | INTEGER       | PK, NOT NULL     |
-| firstName      | VAR CHAR      |                  |
-| lastName       | VAR CHAR      | NOT NULL, UNIQUE |
-| userName       | VAR CHAR      | NOT NULL, UNIQUE |
-| email          | VAR CHAR      | NOT NULL         |
-| hashedPassword | VAR CHAR      | NOT NULL         |
-| Followers      | INTEGER []    |                  |
-| Following      | INTEGER []    |                  |
-| isAdmin      | BOOLEAN       | NOT NULL         |
-
-- `User` hasMany Lists.
-
-## Parks
-| Column Name    | DataType   | Constraints  |
-|----------------|------------|--------------|
-| id             | INTEGER    | PK, NOT NULL |
-| name           | VAR CHAR   | NOT NULL     |
-| description    | VAR CHAR   |              |
-| location       | VAR CHAR   |              |
-
-- `Park` hasMany Trails.
-
-## Trails
-
-| Column Name    | DataType   | Constraints  |
-|----------------|------------|--------------|
-| id             | INTEGER    | PK, NOT NULL |
-| name           | VAR CHAR   | NOT NULL, FK |
-| ParkId         | INTEGER    | FK           |
-| difficulty     | ENUM       |              |
-| length         | INTEGER    | NOT NULL     |
-| elevationGain  | INTEGER    | NOT NULL     |
-| description    | VAR CHAR   |              |
-| images         | VAR CHAR[] | NOT NULL     |
-| tags           | ENUM       |              |
-| location       | TBD        |              |
-
-- `ParkId` references `Park` table
-- `Trail` belongsTo relationship with `Park`
-
-## Lists
-
-| Column Name    | DataType   | Constraints  |
-|----------------|------------|--------------|
-| id             | INTEGER    | PK, NOT NULL |
-| UserID         | INTEGER    | FK, NOT NULL |
-| privacy        | ENUM       |              |
-| trailsList     | INTEGER[]  |              |
-
-- `UserID` references `Users` table
-- `List` belongs to one `Users`
+[Link to Wiki Docs] [https://github.com/alagumuthiah/pick-a-trail/wiki]
 
 
 
-## CompletedSavedUserTrails
-
-| Column Name  | DataType | Constraints  |
-|--------------|----------|--------------|
-| id           | INTEGER  | PK, NOT NULL |
-| UserId       | INTEGER  | NOT NULL, FK |
-| TrailId      | INTEGER  | NOT NULL, FK |
-| completed    | BOOLEAN  |              |
-| saved        | BOOLEAN  |              |
-
-- `UserId` references `Users` table
-- `TrailId` references `Trails` table
-- `CompletedSavedUserTrails` is a through relation between `Users` and `Trails`
-
-## Reviews
-
-| Column Name  | DataType | Constraints  |
-|--------------|----------|--------------|
-| id           | INTEGER  | PK, NOT NULL |
-| UserId       | INTEGER  | NOT NULL, FK |
-| TrailId      | INTEGER  | NOT NULL, FK |
-| starsReview  | ENUM     | NOT NULL     |
-| comment      | VAR CHAR |              |
-| createdAt    | DATETIME |              |
-
-- `UserId` references `Users` table
-- `TrailId` references `Trails` table
-- `Reviews` is a through relation between `Users` and `Trails`
-
-## Activities
-
-| Column Name  | DataType | Constraints  |
-|--------------|----------|--------------|
-| id           | INTEGER  | PK, NOT NULL |
-| UserId       | INTEGER  | NOT NULL, FK |
-| TrailId      | INTEGER  | NOT NULL, FK |
-| title        | VAR CHAR | NOT NULL     |
-| message      | VAR CHAR | NOT NULL     |
-| starsReview  | ENUM     | NOT NULL     |
-| likes        | INTEGER[]|              |
-
-- `UserId` references `Users` table
-- `TrailId` references `Trails` table
-- `Activities` is a through relation between `Users` and `Trails`
-
-## Comments
-
-| Column Name  | DataType | Constraints  |
-|--------------|----------|--------------|
-| id           | INTEGER  | PK, NOT NULL |
-| UserId       | INTEGER  | NOT NULL, FK |
-| ActivityId   | INTEGER  | NOT NULL, FK |
-| comments     | VAR CHAR |              |
-| createdAt    | DATETIME |              |
-
-- `UserId` references `Users` table
-- `ActivityId` references `Activity` table
-- `Comments` is a through relation between `Users` and `Activity`
