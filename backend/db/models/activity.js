@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Activity.belongsToMany(models.User, {
         through: models.Comment
       });
+      Activity.belongsTo(models.User, { foreignKey: 'userId', sourceKey: 'id' });
+      Activity.belongsTo(models.Trail, {
+        foreignKey: 'trailId', sourceKey: 'id'
+      });
     }
   }
   Activity.init({

@@ -1,18 +1,23 @@
 import express from 'express';
 import passport from 'passport';
 import sessionRoute from './routes/api/session';
+import userRoute from './routes/api/user';
 import session from 'express-session';
+import bodyParser from 'body-parser';
 const app = express();
 require('./utils/passport');
 
 app.use(session({ secret: 'secretKey', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(bodyParser.json());
 app.use('/auth', sessionRoute);
+app.use('/users', userRoute);
+
+const port = 3000;
 
 app.listen(3000, () => {
-    console.log('Server listening');
+    console.log('Server listening', port);
 });
 
 /*

@@ -27,6 +27,10 @@ module.exports = {
       isAdmin: {
         type: Sequelize.BOOLEAN
       },
+      provider: {
+        type: Sequelize.ENUM,
+        values: ['traditional', 'google', 'github', 'facebook']
+      },
       followers: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },

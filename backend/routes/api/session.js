@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 
 const sessionRoute = express.Router();
-const CLIENT_URL = 'http://localhost:3002';
+const CLIENT_URL = 'http://localhost:3001';
 
 sessionRoute.get("/", (req, res, next) => {
     res.send('GET URL');
@@ -28,7 +28,7 @@ sessionRoute.get('/google/callback',
 );
 
 sessionRoute.get('/github',
-    passport.authenticate('github', { scope: ['profile'] })
+    passport.authenticate('github', { scope: ['user:email'] })
 );
 
 sessionRoute.get('/github/callback',
@@ -38,13 +38,14 @@ sessionRoute.get('/github/callback',
     })
 );
 
+//check how to specify scope to get relevant details from the user based on facebook profile
 sessionRoute.get('/facebook',
     passport.authenticate('facebook')
 );
 
 sessionRoute.get('/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: CLIENT_URL,
+        successRedirect: `${CLIENT_URL}/explore`,
         failureRedirect: '/auth/login/failed'
     })
 );

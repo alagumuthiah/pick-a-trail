@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       Trail.belongsToMany(models.User, {
         through: models.Review
       });
-      Trail.belongsToMany(models.User, {
-        through: models.Activity
+      Trail.hasMany(models.Activity, {
+        foreignKey: 'trailId', targetKey: 'id'
       });
     }
   }

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.List, { foreignKey: 'userId', targetKey: 'id' });
       User.belongsToMany(models.Trail, { through: models.CompletedSavedUserTrail });
       User.belongsToMany(models.Trail, { through: models.Review });
-      User.belongsToMany(models.Trail, { through: models.Activity });
+      User.hasMany(models.Activity, { foreignKey: 'userId', targetKey: 'id' });
       User.belongsToMany(models.Activity, {
         through: models.Comment
       });
@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     hashedPassword: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
+    provider: {
+      type: DataTypes.ENUM,
+      values: ['traditional', 'google', 'github', 'facebook']
+    },
     followers: DataTypes.ARRAY(DataTypes.INTEGER),
     following: DataTypes.ARRAY(DataTypes.INTEGER)
   }, {
