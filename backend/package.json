@@ -1,36 +1,35 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend server for all trails clone app",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node index.js"
+    "sequelize": "sequelize",
+    "sequelize-cli": "sequelize-cli",
+    "start": "per-env",
+    "start:development": "nodemon ./bin/www",
+    "start:production": "node ./bin/www"
   },
-  "author": "Alagu Muthiah",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/cli": "^7.22.15",
-    "@babel/core": "^7.22.15",
-    "@babel/node": "^7.22.15",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@babel/preset-env": "^7.22.15",
-    "nodemon": "^3.0.1",
-    "rimraf": "^5.0.1"
-  },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "joi": "^17.10.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
-    "passport": "^0.6.0",
-    "passport-facebook": "^3.0.0",
-    "passport-github2": "^0.1.12",
-    "passport-google-oauth20": "^2.0.0",
-    "pg": "^8.11.3",
-    "sequelize": "^6.32.1"
+    "morgan": "^1.10.0",
+    "per-env": "^1.0.2",
+    "sequelize": "^6.33.0",
+    "sequelize-cli": "^6.6.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.3.0",
+    "nodemon": "^3.0.1"
   }
 }
