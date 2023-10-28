@@ -56,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.List, { foreignKey: 'userId', targetKey: 'id' });
       User.belongsToMany(models.Trail, { through: models.CompletedSavedUserTrail });
+      User.belongsToMany(models.Trail, { through: models.Review });
     }
   }
   User.init({

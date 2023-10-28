@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     area: {
       type: DataTypes.INTEGER,
       allowNull: false

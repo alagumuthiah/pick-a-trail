@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Trail.belongsTo(models.Park, { foreignKey: 'parkId', sourceKey: 'id' });
       Trail.belongsToMany(models.User, { through: models.CompletedSavedUserTrail });
+      Trail.belongsToMany(models.User, { through: models.Review });
     }
   }
 
@@ -34,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     images: DataTypes.ARRAY(DataTypes.STRING),
     tags: {
       type: DataTypes.ARRAY(DataTypes.STRING) //validation to be added, the array values has to be one of the following - ['Dog friendly', 'hiking', 'forest', 'lake', 'falls']

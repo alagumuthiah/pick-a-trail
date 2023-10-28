@@ -66,3 +66,9 @@ module.exports = {
     }, {});
   }
 };
+
+
+/*
+npx sequelize seed:generate --name <seeder-filename>
+dotenv npx sequelize db:seed:all
+*/
