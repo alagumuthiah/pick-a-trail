@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Trail.belongsTo(models.Park, { foreignKey: 'parkId', sourceKey: 'id' });
+      Trail.belongsToMany(models.User, { through: models.CompletedSavedUserTrail });
     }
   }
 

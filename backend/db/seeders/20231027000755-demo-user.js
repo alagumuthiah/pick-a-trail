@@ -29,7 +29,7 @@ module.exports = {
         userName: 'demouser2',
         email: 'demouser2@gmail.com',
         hashedPassword: bcrypt.hashSync('password'),
-        isAdmin: true,
+        isAdmin: false,
         provider: 'traditional'
       },
       {
@@ -38,7 +38,7 @@ module.exports = {
         userName: 'demouser3',
         email: 'demouser3@gmail.com',
         hashedPassword: bcrypt.hashSync('password'),
-        isAdmin: true,
+        isAdmin: false,
         provider: 'traditional'
       },
     ], {});

@@ -62,7 +62,7 @@ module.exports = {
       },
       {
         name: 'Koko Crater Tramway',
-        parkId: 5,
+        parkId: null,
         difficulty: 'Hard',
         length: 1.6,
         elevationGain: 912,
@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         name: 'Diamond Head Crater',
-        parkId: 5,
+        parkId: null,
         difficulty: 'Moderate',
         length: 1.9,
         elevationGain: 515,
