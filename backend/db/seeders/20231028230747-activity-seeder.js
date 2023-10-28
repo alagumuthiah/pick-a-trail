@@ -36,11 +36,16 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete('Activities', {
+      reviewId: {
+        [Op.in]: [1, 5, 8]
+      }
+    }, {});
   }
 };
+
+/*
+npx sequelize seed:generate --name parks-seeder
+dotenv npx sequelize db:seed:all
+*/

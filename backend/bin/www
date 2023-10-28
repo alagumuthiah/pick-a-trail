@@ -36,7 +36,7 @@ npx sequelize-cli model:generate --name CompletedSavedUserTrail --attributes sav
 
 npx sequelize-cli model:generate --name Review --attributes starsReview:integer,comment:string;
 
-npx sequelize-cli model:generate --name Activity --attributes title:string,message:text,starsReview:integer,likes:array:integer;
+npx sequelize-cli model:generate --name Activity --attributes title:string,likes:array:integer;
 
 npx sequelize-cli model:generate --name Comment --attributes comments:string;
 */
