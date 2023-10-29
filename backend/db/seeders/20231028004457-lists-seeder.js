@@ -9,18 +9,18 @@ module.exports = {
         name: 'ToDo',
         userId: 2,
         privacy: 'Followers Only',
-        trailList: [1, 3]
+        trailList: [1]
       },
       {
         name: 'MyList',
         userId: 1,
         privacy: 'Public',
-        trailList: [2, 4]
+        trailList: 2
       }, {
         name: 'TripPlan',
         userId: 1,
         privacy: 'Private',
-        trailList: [6, 7]
+        trailList: 6
       }
 
     ], {});

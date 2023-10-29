@@ -16,16 +16,17 @@ module.exports = {
       {
         title: 'Best views of Mt Rainier',
         reviewId: 1,
-        likes: [2]
+        likes: [1]
       },
       {
         title: 'A good workout',
-        reviewId: 8
+        reviewId: 8,
+        likes: [2]
       },
       {
         title: 'View is the same, not worth it',
         reviewId: 5,
-        likes: []
+        likes: [1]
       },
       {
         title: 'Awesome views of the island',

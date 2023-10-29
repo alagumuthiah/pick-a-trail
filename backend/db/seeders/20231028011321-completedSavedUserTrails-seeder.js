@@ -16,42 +16,50 @@ module.exports = {
       {
         userId: 1,
         trailId: 3,
-        saved: true
+        saved: true,
+        completed: false
       },
       {
         userId: 2,
         trailId: 5,
-        completed: true
+        completed: true,
+        saved: false
       },
       {
         userId: 1,
         trailId: 2,
-        completed: true
+        completed: true,
+        saved: false
       },
       {
         userId: 2,
         trailId: 4,
-        saved: true
+        saved: true,
+        completed: false
       },
       {
         userId: 1,
         trailId: 1,
-        saved: true
+        saved: true,
+        completed: false
       },
       {
         userId: 2,
         trailId: 7,
-        completed: true
+        completed: true,
+        saved: false
       },
       {
         userId: 1,
         trailId: 7,
-        saved: true
+        saved: true,
+        completed: false
       },
       {
         userId: 1,
         trailId: 6,
-        completed: true
+        completed: true,
+        saved: false
       }
     ], {});
   },
