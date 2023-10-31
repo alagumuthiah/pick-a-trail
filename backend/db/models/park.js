@@ -4,11 +4,41 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Park extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
+    //get all Parks Information
+    static async getParkInfo() {
+      const parks = await Park.findAll();
+      return parks;
+    }
+
+    static async getParkById(id) {
+      const park = await Park.findByPk(id);
+      return park;
+    }
+
+    static async createPark(newPark) {
+      return await Park.create(newPark);
+    }
+
+    static async updateParkById(parkId, parkInfo) {
+      const parkTobeUpdated = await Park.getParkById(parkId);
+      const updatedPark = await parkTobeUpdated.update(parkInfo);
+      return updatedPark;
+    }
+
+    static async deleteParkById(parkId) {
+      const rowsDeleted = await Park.destroy({
+        where: {
+          id: parkId,
+        }
+      });
+      if (rowsDeleted > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     static associate(models) {
       // define association here
       Park.hasMany(models.Trail, { foreignKey: 'parkId', targetKey: 'id' });
@@ -33,6 +63,7 @@ module.exports = (sequelize, DataTypes) => {
         exclude: ["createdAt", "updatedAt"]
       }
     }
+
   });
   return Park;
 };

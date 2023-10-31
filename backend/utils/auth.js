@@ -60,5 +60,17 @@ const requireAuth = [
     }
 ];
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
 
+const requireAdmin = (req, res, next) => {
+    console.log(req.user.isAdmin);
+    if (req.user.isAdmin) {
+        return next();
+    }
+    const err = new Error('Access Forbidden');
+    err.title = "Forbidden";
+    err.errors = ["You don't have necessary permission to access the requested resource"];
+    err.status = 403;
+    return next(err);
+}
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAdmin };

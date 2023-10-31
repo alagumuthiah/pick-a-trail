@@ -237,3 +237,8 @@ Associations:
 * DELETE /activities/:activityId - Only the user created the activity can delete
 * GET /activities/local - List activities based on location
 * GET /activities/community - List activities of the user's followers
+
+
+# Points to be noted/ checked:
+
+* When creating a Park - should I keep track of the admin user who created the Park entry
