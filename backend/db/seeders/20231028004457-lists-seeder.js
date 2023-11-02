@@ -9,18 +9,18 @@ module.exports = {
         name: 'ToDo',
         userId: 2,
         privacy: 'Followers Only',
-        trailList: [1]
+        trailList: JSON.stringify([1, 2])
       },
       {
         name: 'MyList',
         userId: 1,
         privacy: 'Public',
-        trailList: 2
+        trailList: JSON.stringify([5, 6])
       }, {
         name: 'TripPlan',
         userId: 1,
         privacy: 'Private',
-        trailList: 6
+        trailList: JSON.stringify([1])
       }
 
     ], {});

@@ -25,10 +25,22 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Public',
       allowNull: false
     },
-    trailList: DataTypes.ARRAY(DataTypes.INTEGER)
+    trailList: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'List',
+    defaultScope: {
+      attributes: {
+        exclude: ["createdAt", "updatedAt"]
+      }
+    },
+    scopes: {
+      displayList: {
+        attributes: {
+          exclude: ["privacy", "createdAt", "updatedAt"]
+        }
+      }
+    }
   });
   return List;
 };

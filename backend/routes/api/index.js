@@ -6,6 +6,7 @@ const sessionRouter = require('./session');
 const usersRouter = require('./user');
 const parksRouter = require('./park');
 const trailsRouter = require('./trail');
+const listsRouter = require('./list');
 
 router.use('/session', sessionRouter);
 
@@ -14,6 +15,8 @@ router.use('/users', usersRouter);
 router.use('/parks', parksRouter);
 
 router.use('/trails', trailsRouter);
+
+router.use('/lists', listsRouter);
 
 router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
