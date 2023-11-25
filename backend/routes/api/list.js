@@ -91,7 +91,7 @@ router.put('/:listId', requireAuth, async (req, res, next) => {
     }
 });
 
-//TO DO - to delete trail froma  list
+//TO DO - to delete trail from a  list
 
 router.delete('/:listId', requireAuth, async (req, res, next) => {
     let listId = req.params.listId;

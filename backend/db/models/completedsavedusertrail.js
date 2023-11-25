@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      CompletedSavedUserTrail.belongsTo(models.User);
+      CompletedSavedUserTrail.belongsTo(models.Trail);
     }
   }
   CompletedSavedUserTrail.init({
@@ -19,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'CompletedSavedUserTrail',
+    defaultScope: {
+      attributes: {}
+    },
+    scopes: {
+      completedTrail: {
+        attributes: ["userId", "trailId", "completed"]
+      }
+    }
   });
   return CompletedSavedUserTrail;
 };

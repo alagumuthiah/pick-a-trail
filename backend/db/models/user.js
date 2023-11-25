@@ -57,9 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.List, { foreignKey: 'userId', targetKey: 'id' });
       User.belongsToMany(models.Trail, { through: models.CompletedSavedUserTrail });
       User.belongsToMany(models.Trail, { through: models.Review });
-      User.belongsToMany(models.Activity, {
-        through: models.Comment
-      });
+      // User.belongsToMany(models.Activity, {
+      //   through: models.Comment
+      // });
+      console.log(User.associations);
     }
   }
   User.init({
@@ -128,5 +129,6 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
+
 
 //sequelize.literal and sequelize.fn can be used to remove an element form an array of followers/ following
