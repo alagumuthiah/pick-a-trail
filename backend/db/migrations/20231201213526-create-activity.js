@@ -13,11 +13,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      reviewId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Reviews' }
-      },
       likes: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },

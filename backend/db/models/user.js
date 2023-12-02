@@ -60,7 +60,6 @@ module.exports = (sequelize, DataTypes) => {
       // User.belongsToMany(models.Activity, {
       //   through: models.Comment
       // });
-      console.log(User.associations);
     }
   }
   User.init({

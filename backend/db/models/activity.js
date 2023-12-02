@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //Activity.hasOne(models.Review);
+      Activity.hasOne(models.Review);
       //Activity.belongsToMany(models.User, { through: models.Comment });
     }
   }

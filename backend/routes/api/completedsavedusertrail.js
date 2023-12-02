@@ -50,7 +50,7 @@ router.get('/completed', requireAuth, async (req, res, next) => {
 });
 
 /*
-
+GET request - display the users who have completed a specifc trail- USE LIMIT to load the users completed- 10 users at a time
 */
 router.post('/completed/:trailId', requireAuth, async (req, res, next) => {
     let completedTrail = await CompletedSavedUserTrail.findOne({

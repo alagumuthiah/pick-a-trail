@@ -16,6 +16,7 @@ module.exports = {
       {
         userId: 1,
         trailId: 1,
+        activityId: 1,
         starsReview: 5,
         comment: 'Just finished this hike today. The snow was tough but beautiful views. Very exhausted by the end of it but hiking sticks would have make things easier.'
       },
@@ -40,18 +41,21 @@ module.exports = {
       {
         userId: 1,
         trailId: 5,
+        activityId: 2,
         starsReview: 5,
         comment: 'So cool. We went down about 2.6 miles and then turned around, for total of a little over 5 miles, just for timing. Views are amazing. Such a great hike, we want to come back for the whole thing. Lots of sun.'
       },
       {
         userId: 2,
         trailId: 5,
+        activityId: 3,
         starsReview: 4,
         comment: 'Any exposed skin will get burned when the sun is out. Dress accordingly. You"ll need more water than you think you will.'
       },
       {
         userId: 1,
         trailId: 6,
+        activityId: 4,
         starsReview: 5,
         comment: 'Cannot beat the sunset views'
       },

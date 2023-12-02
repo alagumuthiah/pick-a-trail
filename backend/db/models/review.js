@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Review.belongsTo(models.User);
       Review.belongsTo(models.Trail);
-      //Review.belongsTo(models.Activity);
+      Review.belongsTo(models.Activity);
     }
   }
   Review.init({

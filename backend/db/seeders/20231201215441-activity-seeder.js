@@ -15,22 +15,18 @@ module.exports = {
     return await queryInterface.bulkInsert('Activities', [
       {
         title: 'Best views of Mt Rainier',
-        reviewId: 1,
         likes: [1]
       },
       {
         title: 'A good workout',
-        reviewId: 8,
         likes: [2]
       },
       {
         title: 'View is the same, not worth it',
-        reviewId: 5,
         likes: [1]
       },
       {
         title: 'Awesome views of the island',
-        reviewId: 8,
         likes: [1]
       }
     ], {});

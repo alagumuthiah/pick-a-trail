@@ -25,7 +25,7 @@ router.get('/users/:userId', async (req, res, next) => {
     res.json(reviews);
 });
 
-// Returns all the reviews for a trail
+// Returns all the reviews for a trail - CAN USE LIMIT to load the reviews
 router.get('/trails/:trailId', async (req, res, next) => {
     const trailId = req.params.trailId;
     const reviews = await Review.findAll({

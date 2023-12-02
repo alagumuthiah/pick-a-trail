@@ -19,6 +19,10 @@ module.exports = {
         allowNull: false,
         references: { model: 'Trails' }
       },
+      activityId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Activities' }
+      },
       starsReview: {
         type: Sequelize.ENUM,
         allowNull: false,
