@@ -1,5 +1,8 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser } from "../../store/session";
+import { useNavigate } from "react-router-dom";
 
 //firstName, lastName, userName, email, password
 export default function SignUp() {
@@ -8,6 +11,16 @@ export default function SignUp() {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const sessionUser = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        if (sessionUser) {
+            navigate("/");
+        }
+    }, [sessionUser]);
 
     const handleSignup = (event) => {
         event.preventDefault();
@@ -19,12 +32,24 @@ export default function SignUp() {
             password
         }
         console.log(payload);
+        dispatch(signUpUser(payload))
+            .catch(async (res) => {
+                console.log('error');
+                console.log(res);
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            })
     }
     return (
 
         <div className="container">
             <h2>Sign up today to start planning your next adventure</h2>
             <form className="form" onSubmit={handleSignup}>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
                 <div>
                     <label htmlFor="firstname">FirstName</label>
                     <input

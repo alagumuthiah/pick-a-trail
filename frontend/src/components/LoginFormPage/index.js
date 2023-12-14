@@ -1,6 +1,10 @@
 // import { baseUrl } from '../../utils/baseUrl';
-// import { Link } from 'react-router-dom';
-import { useState } from 'react';
+//import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setSessionUser } from '../../store/session';
+
 export default function Login() {
 
     // const googlePage = () => {
@@ -16,20 +20,42 @@ export default function Login() {
     // }
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState([]);
+    const dispatch = useDispatch();
+    const sessionUser = useSelector((state) => state.session.user);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (sessionUser) {
+            navigate("/");
+        }
+    }, [sessionUser]);
 
     const handleLogin = (event) => {
         console.log('handle Login');
+        setErrors([]); //check for validation and update errors
         event.preventDefault();
         const payload = {
             credential,
             password
         }
         console.log(payload);
+        dispatch(setSessionUser(payload))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
+            })
+
     }
     return (
         <div className="container">
             <h2>Login and Start Exploring</h2>
             <form className="form" onSubmit={handleLogin}>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
                 <div>
                     <label htmlFor="credential">UserName / Email</label>
                     <input

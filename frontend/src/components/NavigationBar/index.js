@@ -1,7 +1,22 @@
 import './NavigationBar.css';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../../store/session';
 
 export default function NavigationBar() {
+    const sessionUser = useSelector((state) => state.session.user);
+    const dispatch = useDispatch();
+
+    const handleLogOut = (event) => {
+        event.preventDefault();
+        console.log('handle logout');
+        dispatch(logoutUser())
+    }
+
+    const loadProfile = () => {
+        console.log('Load Profile');
+    }
+
     return (
 
         <div className="header__section">
@@ -15,19 +30,22 @@ export default function NavigationBar() {
                 <h3>Community</h3>
             </Link>
 
-            <Link className="link--navbar" to="/signup">
+            <Link className="link--navbar" to="/saved">
                 <h3>Saved</h3>
             </Link>
 
-            <Link className="link--navbar" to="/login">
-                <h3>Login</h3>
-            </Link>
-
-            {/* <Button size="medium" color="primary" variant="contained" onClick={handleLogOut} >Logout</Button>
-            :
-            <Link to="/login">
-                <Button size="medium" color="primary" variant="contained">Login</Button>
-            </Link>} */}
+            {sessionUser &&
+                <button onClick={loadProfile}>{sessionUser.firstName} {sessionUser.lastName}</button>
+            }
+            {sessionUser ?
+                <Link className="link--navbar" to="/logout">
+                    <div onClick={handleLogOut}>Logout</div>
+                </Link>
+                :
+                <Link className="link--navbar" to="/login">
+                    <h3>Login</h3>
+                </Link>
+            }
 
         </div>
     )
