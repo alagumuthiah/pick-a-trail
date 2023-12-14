@@ -1,3 +1,14 @@
-.login__form{
-    margin-top: 200px;
+.container {
+    background-color: #110f0f; /* Set your desired background color */
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px; /* Set your desired width */
+    margin: auto; /* Center the container horizontally */
+    margin-top: 50px; /* Add top margin for better visual appearance */
+  }
+
+.form{
+    display:flex;
+    flex-direction: row;
+    align-items: space-around;
 }
