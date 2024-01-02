@@ -1,0 +1,36 @@
+.profile-page{
+    background-color: #efefec;;
+}
+
+.container{
+    display:flex; /* flex direction is row by default*/
+}
+
+.profile-section{
+    width:300px;
+    height:100%;
+    border-radius:10px;
+    background-color: white;
+    margin:30px;
+    padding:20px;
+    box-shadow:
+            2px 2px 2px 2px #ddd,
+            inset 1px 1px 1px 0px #eee;
+}
+
+.detail-section{
+    height:100%;
+    margin:20px;
+    padding:20px;
+}
+
+.link-tags{
+    background-color: orange;
+    padding:20px;
+    margin:10px;
+}
+
+.active-link{
+    color: green;
+    font-weight: bold;
+}

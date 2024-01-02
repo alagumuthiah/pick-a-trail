@@ -1,26 +1,28 @@
 import './NavigationBar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../../store/session';
 
 export default function NavigationBar() {
     const sessionUser = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogOut = (event) => {
         event.preventDefault();
-        console.log('handle logout');
-        dispatch(logoutUser())
+        dispatch(logoutUser());
+        navigate("/explore");
     }
 
     const loadProfile = () => {
         console.log('Load Profile');
+        navigate("/members/" + sessionUser.firstName + '-' + sessionUser.lastName);
     }
 
     return (
 
         <div className="header__section">
-            <a href="/"><img src="all-trails-logo.jpeg" alt="trails_logo" width="100px" height="100px" /></a>
+            <a href="/"><img src="  all-trails-logo.jpeg" alt="trails_logo" width="100px" height="100px" /></a>
 
             <Link className="link--navbar" to="/explore">
                 <h3>Explore</h3>

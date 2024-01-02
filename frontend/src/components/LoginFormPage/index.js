@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSessionUser } from '../../store/session';
+import './LoginFormPage.css';
 
 export default function Login() {
 
@@ -50,7 +51,7 @@ export default function Login() {
 
     }
     return (
-        <div className="container">
+        <div>
             <h2>Login and Start Exploring</h2>
             <form className="form" onSubmit={handleLogin}>
                 <ul>
