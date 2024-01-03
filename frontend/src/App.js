@@ -7,6 +7,10 @@ import SignUp from './components/SignUpFormPage';
 import './App.css';
 import UserProfile from './components/UserProfile';
 import FeedSection from './components/FeedSection';
+import Reviews from './components/Reviews';
+import Photos from './components/Photos';
+import Activities from './components/Activities';
+import Completed from './components/Completed';
 
 function App() {
   return (
@@ -23,10 +27,10 @@ function App() {
           {/* Use nested routes for the different sections under the UserProfile details section */}
           <Route path="/members/:userName/*" element={<UserProfile />}>
             <Route path="feed" element={<FeedSection />} />
-            {/* <Route path="photos" element={<Photos />} />
-            <Route path="reviews" elements={<Reviews />} />
-            <Route path="reviews" elements={<Activites />} />
-            <Route path="reviews" elements={<Completed />} /> */}
+            <Route path="photos" element={<Photos />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="activities" element={<Activities />} />
+            <Route path="completed" element={<Completed />} />
           </Route>
 
 

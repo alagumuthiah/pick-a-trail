@@ -16,11 +16,13 @@ const UserProfile = () => {
                 </div>
                 <div className="detail-section">
                     <NavLink className="link-tags" to="feed">Feed</NavLink>
-                    <NavLink className="link-tags">Photos</NavLink>
-                    <NavLink className="link-tags">Reviews</NavLink>
-                    <NavLink className="link-tags">Activities</NavLink>
+                    <NavLink className="link-tags" to="photos">Photos</NavLink>
+                    <NavLink className="link-tags" to="reviews">Reviews</NavLink>
+                    <NavLink className="link-tags" to="activities">Activities</NavLink>
                     <NavLink
-                        className="link-tags">Completed</NavLink>
+                        className="link-tags"
+                        to="completed">Completed</NavLink>
+
                     <Outlet />
                 </div>
 
