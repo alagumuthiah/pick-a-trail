@@ -1,0 +1,9 @@
+.community-container{
+    display:flex;
+    justify-content: space-around;
+}
+
+.community-user-list{
+    display:flex;
+    flex-direction: column;
+}

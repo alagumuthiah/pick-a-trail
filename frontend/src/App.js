@@ -11,6 +11,7 @@ import Reviews from './components/Reviews';
 import Photos from './components/Photos';
 import Activities from './components/Activities';
 import Completed from './components/Completed';
+import Community from './components/Community';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/community" element={<Community />} />
           {/* Use nested routes for the different sections under the UserProfile details section */}
           <Route path="/members/:userName/*" element={<UserProfile />}>
             <Route path="feed" element={<FeedSection />} />

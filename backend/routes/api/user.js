@@ -29,6 +29,17 @@ const validateSignup = [
     handleValidationErrors
 ];
 
+
+//get list of all users
+router.get('/', async (req, res) => {
+    const users = await User.findAll();
+    console.log(users);
+    return res.json({
+        users
+    });
+})
+
+
 //sign up
 router.post('/', validateSignup, async (req, res) => {
     const { firstName, lastName, userName, email, password } = req.body;
@@ -40,5 +51,6 @@ router.post('/', validateSignup, async (req, res) => {
         user
     });
 });
+
 
 module.exports = router;

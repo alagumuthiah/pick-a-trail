@@ -8,36 +8,37 @@ const UserProfile = () => {
     const currentUser = useSelector((state) => state.session.user);
     console.log(currentUser);
     const location = useLocation();
-
+    console.log(location);
     console.log(location.state?.id);
     console.log(location.state?.email); //use this email / id to fetch the details of the user
+
     return (
-        (currentUser &&
-            <div className="profile-page">
-                <h2>User Profile</h2>
-                <div className="container">
-                    <div className="profile-section">
-                        <h2>FirstName  LastName</h2>
-                        <h3>Location</h3>
-                        <h3>Member since</h3>
-                        <h4>Followers | Following</h4>
-                        <h4>List</h4>
-                    </div>
-                    <div className="detail-section">
-                        <NavLink className="link-tags" to="feed">Feed</NavLink>
-                        <NavLink className="link-tags" to="photos">Photos</NavLink>
-                        <NavLink className="link-tags" to="reviews">Reviews</NavLink>
-                        <NavLink className="link-tags" to="activities">Activities</NavLink>
-                        <NavLink
-                            className="link-tags"
-                            to="completed">Completed</NavLink>
-
-                        <Outlet />
-                    </div>
-
-
+        <div className="profile-page">
+            <h2>User Profile</h2>
+            <div className="container">
+                <div className="profile-section">
+                    {currentUser?.id === location.state?.id && <button>Edit</button>}
+                    <h2>FirstName  LastName</h2>
+                    <h3>Location</h3>
+                    <h3>Member since</h3>
+                    <h4>Followers | Following</h4>
+                    <h4>List</h4>
                 </div>
-            </div >)
+                <div className="detail-section">
+                    <NavLink className="link-tags" to="feed">Feed</NavLink>
+                    <NavLink className="link-tags" to="photos">Photos</NavLink>
+                    <NavLink className="link-tags" to="reviews">Reviews</NavLink>
+                    <NavLink className="link-tags" to="activities">Activities</NavLink>
+                    <NavLink
+                        className="link-tags"
+                        to="completed">Completed</NavLink>
+
+                    <Outlet />
+                </div>
+
+
+            </div>
+        </div >
     )
 }
 
