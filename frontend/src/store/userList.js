@@ -16,7 +16,7 @@ const setUser = (users) => {  //Action creator to set user list
 //     }
 // };
 
-//redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
+//redux thunk is used to dispatch asynchronous action. The setUserList is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
 export const setUserList = () => async (dispatch) => {
     const response = await csrfFetch('/api/users');

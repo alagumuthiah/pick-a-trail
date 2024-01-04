@@ -52,5 +52,9 @@ router.post('/', validateSignup, async (req, res) => {
     });
 });
 
-
+router.get('/:userId', async (req, res) => {
+    const users = await User.findByPk(req.params.userId);
+    console.log(users);
+    return res.json(users);
+})
 module.exports = router;

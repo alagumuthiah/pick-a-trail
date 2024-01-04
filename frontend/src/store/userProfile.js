@@ -20,7 +20,7 @@ const setUser = (user) => {
 };
 
 // Action creator to remove selected user from store
-const removeUser = () => {
+export const removeUser = () => {
     return {
         type: REMOVE_USER
     }
@@ -58,20 +58,15 @@ const removeReviews = () => {
 
 // //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
-// export const setSessionUser = (user) => async (dispatch) => {
-//     const { credential, password } = user;
-//     const response = await csrfFetch('/api/session', {
-//         method: 'POST',
-//         body: JSON.stringify({
-//             credential,
-//             password
-//         })
-//     });
-//     if (response.ok) {
-//         const data = await response.json();
-//         dispatch(setUser(data.user));
-//     }
-// }
+export const setUserInfo = (userId) => async (dispatch) => {
+    console.log('Inside UserInfo');
+    const response = await csrfFetch('/api/users/' + userId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setUser(data));
+    }
+}
 
 // export const restoreSessionUser = () => async (dispatch) => {
 //     const response = await csrfFetch('/api/session');
@@ -92,14 +87,15 @@ const removeReviews = () => {
 export const userProfileReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
-        // case SET_USER:
-        //     newState = Object.assign({}, state);
-        //     newState.user = action.user;
-        //     return newState;
-        // case REMOVE_USER:
-        //     newState = Object.assign({}, state);
-        //     newState.user = null;
-        //     return newState;
+        case SET_USER:
+            newState = Object.assign({}, state);
+
+            newState.user = action.user;
+            return newState;
+        case REMOVE_USER:
+            newState = Object.assign({}, state);
+            newState.user = null;
+            return newState;
         default:
             return state;
     }
