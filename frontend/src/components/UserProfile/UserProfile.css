@@ -34,3 +34,8 @@
     color: green;
     font-weight: bold;
 }
+
+.details{
+    width:500px;
+    text-align:left;
+}

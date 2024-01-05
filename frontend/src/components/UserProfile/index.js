@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, removeUser } from '../../store/userProfile';
+import { setUserInfo, setUserReviews, setCompletedList } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
 const UserProfile = () => {
@@ -15,22 +15,38 @@ const UserProfile = () => {
     console.log(location.state?.id);
     console.log(location.state?.email); //use this email / id to fetch the details of the user
     useEffect(() => {
+        //to set the userInfo in the store
         dispatch(setUserInfo(location.state?.id))
             .catch(async (res) => {
                 console.log(res);
-            })
+            });
+
+        //to set the reviews given by the selected user in the store
+        dispatch(setUserReviews(location.state?.id))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
+
+        //to set the reviews given by the selected user in the store
+        dispatch(setCompletedList(location.state?.id))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
+
         return () => {
             console.log("Clean up function");
-            dispatch(removeUser())
+            // dispatch(removeUser())
         }
-    }, [dispatch, location.state?.id]);
+    }, []);
 
     return (
         <div className="profile-page">
             <h2>User Profile</h2>
             <div className="container">
                 <div className="profile-section">
-                    {currentUser !== null && currentUser?.id === location.state?.id && <button>Edit</button>}
+                    {currentUser !== null && currentUser?.id === userInfo.id && <button>Edit</button>}
                     <h2>{userInfo?.firstName}  {userInfo?.lastName}</h2>
                     <h3>Location</h3>
                     <h3>Member since</h3>
@@ -45,8 +61,10 @@ const UserProfile = () => {
                     <NavLink
                         className="link-tags"
                         to="completed">Completed</NavLink>
+                    <div className="details">
+                        <Outlet />
+                    </div>
 
-                    <Outlet />
                 </div>
 
 

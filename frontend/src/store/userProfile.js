@@ -56,6 +56,13 @@ const removeReviews = () => {
     }
 };
 
+const setCompleted = (completed) => {
+    return {
+        type: SET_COMPLETED_LIST,
+        completed
+    }
+}
+
 // //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
 export const setUserInfo = (userId) => async (dispatch) => {
@@ -68,33 +75,45 @@ export const setUserInfo = (userId) => async (dispatch) => {
     }
 }
 
-// export const restoreSessionUser = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/session');
-//     const data = await response.json();
-//     dispatch(setUser(data.user));
-// }
+export const setUserReviews = (userId) => async (dispatch) => {
+    console.log('Inside UserReview');
+    const response = await csrfFetch('/api/reviews/users/' + userId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setReviews(data));
+    }
+}
 
-// export const logoutUser = () => async (dispatch) => {
-//     const response = await csrfFetch('/api/session', {
-//         method: 'DELETE'
-//     });
-//     if (response.ok) {
-//         const data = await response.json();
-//         dispatch(removeUser(data.user));
-//     }
-// }
+export const setCompletedList = (userId) => async (dispatch) => {
+    console.log('Inside Completed List');
+    const response = await csrfFetch('/api/completedsavedtrails/completed/user/' + userId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setCompleted(data));
+    }
+}
+
 
 export const userProfileReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case SET_USER:
             newState = Object.assign({}, state);
-
             newState.user = action.user;
             return newState;
         case REMOVE_USER:
             newState = Object.assign({}, state);
             newState.user = null;
+            return newState;
+        case SET_REVIEWS:
+            newState = Object.assign({}, state);
+            newState.reviews = action.reviews
+            return newState;
+        case SET_COMPLETED_LIST:
+            newState = Object.assign({}, state);
+            newState.completed = action.completed
             return newState;
         default:
             return state;

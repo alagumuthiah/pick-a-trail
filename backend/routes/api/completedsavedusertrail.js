@@ -23,12 +23,12 @@ POST - Insert a row if the entry doesn't exists, if not edit the exists row. (Bo
 /*
     GET the completed trails by user - getting user id from the request - the user who has currently logged in.
 */
-router.get('/completed', requireAuth, async (req, res, next) => {
+router.get('/completed/user/:userId', requireAuth, async (req, res, next) => {
 
     let completedTrails = await
         CompletedSavedUserTrail.findAll({
             where: {
-                userId: req.user.id,
+                userId: req.params.userId,
                 completed: true
             },
             include: [
@@ -52,7 +52,7 @@ router.get('/completed', requireAuth, async (req, res, next) => {
 /*
 GET request - display the users who have completed a specifc trail- USE LIMIT to load the users completed- 10 users at a time
 */
-router.post('/completed/:trailId', requireAuth, async (req, res, next) => {
+router.post('/completed/trail/:trailId', requireAuth, async (req, res, next) => {
     let completedTrail = await CompletedSavedUserTrail.findOne({
         where: {
             trailId: req.params.trailId,
