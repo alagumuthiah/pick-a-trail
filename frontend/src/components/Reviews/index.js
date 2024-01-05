@@ -3,7 +3,7 @@ import './Review.css';
 
 const Reviews = () => {
     const userReviews = useSelector((state) => state.userProfile.reviews);
-    console.log(userReviews);
+    console.log(userReviews.length);
     const reviewsFormat = userReviews.map((review) => {
         return (
             <div className="review-section">

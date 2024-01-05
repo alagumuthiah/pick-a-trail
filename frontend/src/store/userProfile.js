@@ -10,6 +10,7 @@ const SET_LIST = '/userProfile/list';
 const REMOVE_LIST = '/userProfile/removeList';
 const SET_COMPLETED_LIST = '/userProfile/completed';
 const REMOVE_COMPLETED_LIST = '/userProfile/removeCompleted';
+const SET_ACTIVITIES_LIST = '/userProfile/list';
 
 //Action creator to set userInfo for the selected User
 const setUser = (user) => {
@@ -63,6 +64,13 @@ const setCompleted = (completed) => {
     }
 }
 
+const setActivities = (activities) => {
+    return {
+        type: SET_ACTIVITIES_LIST,
+        activities
+    }
+}
+
 // //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
 export const setUserInfo = (userId) => async (dispatch) => {
@@ -95,6 +103,16 @@ export const setCompletedList = (userId) => async (dispatch) => {
     }
 }
 
+export const setActivitiesList = (userId) => async (dispatch) => {
+    console.log('Inside Activities List');
+    const response = await csrfFetch('/api/activities/users/' + userId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setActivities(data));
+    }
+}
+
 
 export const userProfileReducer = (state = {}, action) => {
     let newState;
@@ -114,6 +132,10 @@ export const userProfileReducer = (state = {}, action) => {
         case SET_COMPLETED_LIST:
             newState = Object.assign({}, state);
             newState.completed = action.completed
+            return newState;
+        case SET_ACTIVITIES_LIST:
+            newState = Object.assign({}, state);
+            newState.activities = action.activities
             return newState;
         default:
             return state;

@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, setUserReviews, setCompletedList } from '../../store/userProfile';
+import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
 const UserProfile = () => {
@@ -35,6 +35,11 @@ const UserProfile = () => {
                 console.log(res);
             });
 
+        dispatch(setActivitiesList(location.state?.id))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
         return () => {
             console.log("Clean up function");
             // dispatch(removeUser())
