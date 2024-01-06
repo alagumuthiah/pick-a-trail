@@ -18,7 +18,6 @@ const removeUser = () => { // Action creator to remove user
 
 //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 export const signUpUser = (userInfo) => async (dispatch) => {
-    console.log('inside signup user');
     const { firstName, lastName, userName, email, password } = userInfo;
     const response = await csrfFetch('/api/users', {
         method: 'POST',

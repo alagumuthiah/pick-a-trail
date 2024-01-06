@@ -11,7 +11,9 @@ import Reviews from './components/Reviews';
 import Photos from './components/Photos';
 import Activities from './components/Activities';
 import Completed from './components/Completed';
+import List from './components/List';
 import Community from './components/Community';
+
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
             <Route path="reviews" element={<Reviews />} />
             <Route path="activities" element={<Activities />} />
             <Route path="completed" element={<Completed />} />
+            <Route path="list" element={<List />} />
           </Route>
 
 

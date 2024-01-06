@@ -1,4 +1,4 @@
-
+import './SignUpFormPage.css';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../store/session";
@@ -20,7 +20,7 @@ export default function SignUp() {
         if (sessionUser) {
             navigate("/");
         }
-    }, [sessionUser]);
+    }, [sessionUser, navigate]);
 
     const handleSignup = (event) => {
         event.preventDefault();
@@ -31,11 +31,8 @@ export default function SignUp() {
             email,
             password
         }
-        console.log(payload);
         dispatch(signUpUser(payload))
             .catch(async (res) => {
-                console.log('error');
-                console.log(res);
                 const data = await res.json();
                 if (data && data.errors) {
                     setErrors(data.errors);
@@ -44,7 +41,7 @@ export default function SignUp() {
     }
     return (
 
-        <div className="container">
+        <div className="form-container">
             <h2>Sign up today to start planning your next adventure</h2>
             <form className="form" onSubmit={handleSignup}>
                 <ul>

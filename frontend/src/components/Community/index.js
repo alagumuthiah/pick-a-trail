@@ -18,13 +18,12 @@ const Community = () => {
     const userList = useSelector((state) => state.userList);
 
     const loadProfile = (user) => {
-        navigate("/members/" + user.firstName + '-' + user.lastName, { state: { id: user.id, email: user.email } });
+        navigate("/members/" + user.firstName + '-' + user.lastName, { state: { id: user.id } });
     }
 
     const userListFormat = userList.map((user) => {
         return <button onClick={() => loadProfile(user)}>{user.firstName} {user.lastName}</button>
     });
-    console.log(userListFormat);
 
     return (
 

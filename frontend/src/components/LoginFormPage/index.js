@@ -30,17 +30,15 @@ export default function Login() {
         if (sessionUser) {
             navigate("/");
         }
-    }, [sessionUser]);
+    }, [sessionUser, navigate]);
 
     const handleLogin = (event) => {
-        console.log('handle Login');
         setErrors([]); //check for validation and update errors
         event.preventDefault();
         const payload = {
             credential,
             password
         }
-        console.log(payload);
         dispatch(setSessionUser(payload))
             .catch(async (res) => {
                 const data = await res.json();

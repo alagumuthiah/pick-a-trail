@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList } from '../../store/userProfile';
+import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
 const UserProfile = () => {
@@ -11,38 +11,42 @@ const UserProfile = () => {
     console.log(currentUser);
     const userInfo = useSelector((state) => state.userProfile.user);
     const location = useLocation();
-    console.log(location);
-    console.log(location.state?.id);
-    console.log(location.state?.email); //use this email / id to fetch the details of the user
+    const userId = location.state?.id;
     useEffect(() => {
         //to set the userInfo in the store
-        dispatch(setUserInfo(location.state?.id))
+        dispatch(setUserInfo(userId))
             .catch(async (res) => {
                 console.log(res);
             });
 
         //to set the reviews given by the selected user in the store
-        dispatch(setUserReviews(location.state?.id))
+        dispatch(setUserReviews(userId))
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);
             });
 
         //to set the reviews given by the selected user in the store
-        dispatch(setCompletedList(location.state?.id))
+        dispatch(setCompletedList(userId))
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);
             });
 
-        dispatch(setActivitiesList(location.state?.id))
+        //to set the activities by the selected user in the store
+        dispatch(setActivitiesList(userId))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
+        //to set the list saved by the selected user in the store
+        dispatch(setSavedList(userId))
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);
             });
         return () => {
             console.log("Clean up function");
-            // dispatch(removeUser())
         }
     }, []);
 

@@ -1,15 +1,9 @@
 import { csrfFetch } from "./csrf";
 
 const SET_USER = '/userProfile/userInfo';
-const REMOVE_USER = '/userProfile/removeUserInfo';
-const SET_FEED = '/userProfile/feed';
-const REMOVE_FEED = '/userProfile/removefeed';
 const SET_REVIEWS = '/userProfile/reviews';
-const REMOVE_REVIEWS = '/userProfile/removeReviews';
-const SET_LIST = '/userProfile/list';
-const REMOVE_LIST = '/userProfile/removeList';
+const SET_LIST = '/userProfile/saved/list';
 const SET_COMPLETED_LIST = '/userProfile/completed';
-const REMOVE_COMPLETED_LIST = '/userProfile/removeCompleted';
 const SET_ACTIVITIES_LIST = '/userProfile/list';
 
 //Action creator to set userInfo for the selected User
@@ -20,40 +14,11 @@ const setUser = (user) => {
     }
 };
 
-// Action creator to remove selected user from store
-export const removeUser = () => {
-    return {
-        type: REMOVE_USER
-    }
-};
-
-//Action creator to set feed for the selected User
-const setFeed = (feed) => {
-    return {
-        type: SET_FEED,
-        feed
-    }
-};
-
-// Action creator to remove feed for the selected userfrom store
-const removeFeed = () => {
-    return {
-        type: REMOVE_FEED
-    }
-};
-
 //Action creator to set userInfo for the selected User
 const setReviews = (reviews) => {
     return {
         type: SET_REVIEWS,
         reviews
-    }
-};
-
-// Action creator to remove selected user from store
-const removeReviews = () => {
-    return {
-        type: REMOVE_REVIEWS
     }
 };
 
@@ -68,6 +33,13 @@ const setActivities = (activities) => {
     return {
         type: SET_ACTIVITIES_LIST,
         activities
+    }
+}
+
+const setList = (lists) => {
+    return {
+        type: SET_LIST,
+        lists
     }
 }
 
@@ -104,7 +76,6 @@ export const setCompletedList = (userId) => async (dispatch) => {
 }
 
 export const setActivitiesList = (userId) => async (dispatch) => {
-    console.log('Inside Activities List');
     const response = await csrfFetch('/api/activities/users/' + userId);
     if (response.ok) {
         const data = await response.json();
@@ -113,6 +84,16 @@ export const setActivitiesList = (userId) => async (dispatch) => {
     }
 }
 
+export const setSavedList = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/lists/users/' + userId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setList(data));
+    }
+}
+
+
 
 export const userProfileReducer = (state = {}, action) => {
     let newState;
@@ -120,10 +101,6 @@ export const userProfileReducer = (state = {}, action) => {
         case SET_USER:
             newState = Object.assign({}, state);
             newState.user = action.user;
-            return newState;
-        case REMOVE_USER:
-            newState = Object.assign({}, state);
-            newState.user = null;
             return newState;
         case SET_REVIEWS:
             newState = Object.assign({}, state);
@@ -136,6 +113,10 @@ export const userProfileReducer = (state = {}, action) => {
         case SET_ACTIVITIES_LIST:
             newState = Object.assign({}, state);
             newState.activities = action.activities
+            return newState;
+        case SET_LIST:
+            newState = Object.assign({}, state);
+            newState.lists = action.lists;
             return newState;
         default:
             return state;
