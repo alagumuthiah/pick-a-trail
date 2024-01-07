@@ -13,8 +13,8 @@ import Activities from './components/Activities';
 import Completed from './components/Completed';
 import List from './components/List';
 import Community from './components/Community';
-
-
+import Explore from './components/Explore';
+import TrailInfo from './components/TrailInfo';
 function App() {
   return (
     <div className="App">
@@ -28,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/explore" element={<Explore />} />
           {/* Use nested routes for the different sections under the UserProfile details section */}
           <Route path="/members/:userName/*" element={<UserProfile />}>
             <Route path="feed" element={<FeedSection />} />
@@ -38,6 +39,13 @@ function App() {
             <Route path="list" element={<List />} />
           </Route>
 
+          <Route path="/trails/:trailName/*" element={<TrailInfo />}>
+            {/* <Route path="feed" element={<FeedSection />} />
+            <Route path="photos" element={<Photos />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="activities" element={<Activities />} />
+            <Route path="completed" element={<Completed />} /> */}
+          </Route>
 
         </Routes>
         <footer>
