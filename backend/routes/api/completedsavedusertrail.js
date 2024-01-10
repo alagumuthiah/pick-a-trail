@@ -23,7 +23,7 @@ POST - Insert a row if the entry doesn't exists, if not edit the exists row. (Bo
 /*
     GET the completed trails by user - getting user id from the request - the user who has currently logged in.
 */
-router.get('/completed/user/:userId', requireAuth, async (req, res, next) => {
+router.get('/completed/users/:userId', requireAuth, async (req, res, next) => {
 
     let completedTrails = await
         CompletedSavedUserTrail.findAll({
@@ -52,7 +52,29 @@ router.get('/completed/user/:userId', requireAuth, async (req, res, next) => {
 /*
 GET request - display the users who have completed a specifc trail- USE LIMIT to load the users completed- 10 users at a time
 */
-router.post('/completed/trail/:trailId', requireAuth, async (req, res, next) => {
+
+router.get('/completed/trails/:trailId', requireAuth, async (req, res, next) => {
+
+    let completedTrails = await
+        CompletedSavedUserTrail.findAll({
+            where: {
+                trailId: req.params.trailId,
+                completed: true
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['firstName', 'lastName']
+                }
+            ],
+            attributes: [],
+        });
+    res.json(completedTrails);
+});
+
+
+
+router.post('/completed/trails/:trailId', requireAuth, async (req, res, next) => {
     let completedTrail = await CompletedSavedUserTrail.findOne({
         where: {
             trailId: req.params.trailId,
@@ -122,7 +144,7 @@ router.get('/saved', requireAuth, async (req, res, next) => {
     res.json(savedTrails);
 });
 
-router.post('/saved/:trailId', requireAuth, async (req, res, next) => {
+router.post('/saved/trails/:trailId', requireAuth, async (req, res, next) => {
     let savedTrail = await CompletedSavedUserTrail.findOne({
         where: {
             trailId: req.params.trailId,

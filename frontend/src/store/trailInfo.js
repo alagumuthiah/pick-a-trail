@@ -56,24 +56,24 @@ export const setTrailReviews = (trailId) => async (dispatch) => {
     }
 }
 
-// export const setTrailCompletedList = (trailId) => async (dispatch) => {
-//     console.log('Inside Completed List');
-//     const response = await csrfFetch('/api/completedsavedtrails/completed/trail/' + trailId);
-//     if (response.ok) {
-//         const data = await response.json();
-//         console.log(data);
-//         dispatch(setCompletedList(data));
-//     }
-// }
+export const setTrailCompletedList = (trailId) => async (dispatch) => {
+    console.log('Inside Completed List');
+    const response = await csrfFetch('/api/completedsavedtrails/completed/trails/' + trailId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setCompletedList(data));
+    }
+}
 
-// export const setActivitiesList = (userId) => async (dispatch) => {
-//     const response = await csrfFetch('/api/activities/users/' + userId);
-//     if (response.ok) {
-//         const data = await response.json();
-//         console.log(data);
-//         dispatch(setActivities(data));
-//     }
-// }
+export const setActivitiesList = (trailId) => async (dispatch) => {
+    const response = await csrfFetch('/api/activities/trails/' + trailId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setActivities(data));
+    }
+}
 
 
 
@@ -92,10 +92,10 @@ export const trailInfoReducer = (state = {}, action) => {
             newState = Object.assign({}, state);
             newState.completed = action.completed
             return newState;
-        // case SET_ACTIVITIES_LIST:
-        //     newState = Object.assign({}, state);
-        //     newState.activities = action.activities
-        //     return newState;
+        case SET_TRAIL_ACTIVITIES_LIST:
+            newState = Object.assign({}, state);
+            newState.activities = action.activities
+            return newState;
         default:
             return state;
     }
