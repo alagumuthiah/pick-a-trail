@@ -40,11 +40,6 @@ function App() {
           </Route>
 
           <Route path="/trails/:trailName/*" element={<TrailInfo />}>
-            {/* <Route path="feed" element={<FeedSection />} />
-            <Route path="photos" element={<Photos />} />
-            <Route path="reviews" element={<Reviews />} />
-            <Route path="activities" element={<Activities />} />
-            <Route path="completed" element={<Completed />} /> */}
           </Route>
 
         </Routes>

@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setTrailInfo, setTrailReviews, setTrailCompletedList, setActivitiesList } from '../../store/trailInfo';
+import { ReviewTrail } from './review';
+import { ActivityTrail } from './activities';
+import { CompletedTrail } from './completed';
 
 const TrailInfo = () => {
     const location = useLocation();
@@ -43,16 +46,16 @@ const TrailInfo = () => {
     let content;
     switch (activeTab) {
         case 1:
-            content = <p>Reviews</p>;
+            content = <ReviewTrail />;
             break;
         case 2:
             content = <p>Photos</p>;
             break;
         case 3:
-            content = <p>Activities</p>;
+            content = <ActivityTrail />;
             break;
         case 4:
-            content = <p>Completed</p>;
+            content = <CompletedTrail />;
             break;
         default:
             content = <div>Unknown option</div>;
