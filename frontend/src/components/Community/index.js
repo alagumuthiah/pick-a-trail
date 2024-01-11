@@ -22,7 +22,7 @@ const Community = () => {
     }
 
     const userListFormat = userList.map((user) => {
-        return <button onClick={() => loadProfile(user)}>{user.firstName} {user.lastName}</button>
+        return <div className="user-button" onClick={() => loadProfile(user)}>{user.firstName} {user.lastName}</div>
     });
 
     return (

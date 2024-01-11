@@ -1,5 +1,5 @@
 import './UserProfile.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList } from '../../store/userProfile';
@@ -12,6 +12,16 @@ const UserProfile = () => {
     const userInfo = useSelector((state) => state.userProfile.user);
     const location = useLocation();
     const userId = location.state?.id;
+    const [activeTab, setActiveTab] = useState(2);
+    const activeLinkStyle = {
+        'background-color': '#569d0f',
+        'font-weight': 'bold',
+        'text-decoration': 'underline'
+    }
+
+    const linkStyle = {
+        'color': 'white'
+    }
     useEffect(() => {
         //to set the userInfo in the store
         dispatch(setUserInfo(userId))
@@ -60,16 +70,24 @@ const UserProfile = () => {
                     <h3>Location</h3>
                     <h3>Member since</h3>
                     <h4>Followers | Following</h4>
-                    <NavLink className="link-tags" to="list">List</NavLink>
+                    <NavLink className="link-tags" to="list"
+                        onClick={() => setActiveTab(1)}
+                        style={activeTab === 1 ? activeLinkStyle : linkStyle}>List</NavLink>
                 </div>
                 <div className="detail-section">
-                    <NavLink className="link-tags" to="feed">Feed</NavLink>
-                    <NavLink className="link-tags" to="photos">Photos</NavLink>
-                    <NavLink className="link-tags" to="reviews">Reviews</NavLink>
-                    <NavLink className="link-tags" to="activities">Activities</NavLink>
+                    <NavLink className="link-tags" to="feed"
+                        onClick={() => setActiveTab(2)}
+                        style={activeTab === 2 ? activeLinkStyle : linkStyle}>Feed</NavLink>
+                    <NavLink className="link-tags" to="photos" onClick={() => setActiveTab(3)}
+                        style={activeTab === 3 ? activeLinkStyle : linkStyle}>Photos</NavLink>
+                    <NavLink className="link-tags" to="reviews" onClick={() => setActiveTab(4)}
+                        style={activeTab === 4 ? activeLinkStyle : linkStyle}>Reviews</NavLink>
+                    <NavLink className="link-tags" to="activities" onClick={() => setActiveTab(5)}
+                        style={activeTab === 5 ? activeLinkStyle : linkStyle}>Activities</NavLink>
                     <NavLink
                         className="link-tags"
-                        to="completed">Completed</NavLink>
+                        to="completed" onClick={() => setActiveTab(6)}
+                        style={activeTab === 6 ? activeLinkStyle : linkStyle}>Completed</NavLink>
                     <div className="details">
                         <Outlet />
                     </div>

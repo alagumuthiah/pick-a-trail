@@ -13,6 +13,15 @@ const TrailInfo = () => {
     const trailInfo = useSelector((state) => state.trailInfo.trail);
     const trailId = location.state?.id;
     const [activeTab, setActiveTab] = useState(1);
+    const activeTabStyle = {
+        'background-color': '#749c4d',
+        'font-weight': 'bold'
+    }
+
+    const tabStyle = {
+        'background-color': '#2c5601'
+    }
+
     useEffect(() => {
         //to set trailInfo
         dispatch(setTrailInfo(trailId))
@@ -69,15 +78,23 @@ const TrailInfo = () => {
                 <h4>Description</h4>
                 <p>{trailInfo.description}</p>
                 <div className="trail-tabs">
-                    <button onClick={() => setActiveTab(1)}>Reviews</button>
-                    <button onClick={() => setActiveTab(2)}>Photos</button>
-                    <button onClick={() => setActiveTab(3)}>Activities</button>
-                    <button onClick={() => setActiveTab(4)}>Completed</button>
+                    <div className="tabs"
+                        style={activeTab === 1 ? activeTabStyle : tabStyle}
+                        onClick={() => setActiveTab(1)}>Reviews</div>
+                    <div className="tabs"
+                        style={activeTab === 2 ? activeTabStyle : tabStyle}
+                        onClick={() => setActiveTab(2)}>Photos</div>
+                    <div className="tabs"
+                        style={activeTab === 3 ? activeTabStyle : tabStyle}
+                        onClick={() => setActiveTab(3)}>Activities</div>
+                    <div className="tabs"
+                        style={activeTab === 4 ? activeTabStyle : tabStyle}
+                        onClick={() => setActiveTab(4)}>Completed</div>
                 </div>
                 {content}
 
 
-            </div>
+            </div >
 
         )
     }

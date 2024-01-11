@@ -31,11 +31,7 @@
     margin:10px;
     ;
     text-decoration: none;
-}
-
-.active-link{
-    color: green;
-    font-weight: bold;
+    border-radius: 5px;
 }
 
 .details{

@@ -1,6 +1,5 @@
 .header__section{
     background-color: #2c5601;
-    color:white;
     width:100%;
     font-family: Manrope,Arial,sans-serif;
     display:flex;
@@ -11,6 +10,8 @@
 
 .link--navbar{
     font-size: 16px;
-    color:white;
+    font-weight: bold;
     text-decoration: none;
+    color:#569d0f
+    #547625
 }
