@@ -132,7 +132,8 @@ router.get('/saved', requireAuth, async (req, res, next) => {
                 attributes: ['firstName', 'lastName']
             },
             {
-                model: Trail
+                model: Trail,
+                attributes: ['id']
             },
         ],
         attributes: [
@@ -171,7 +172,8 @@ router.post('/saved/trails/:trailId', requireAuth, async (req, res, next) => {
                     attributes: ['firstName', 'lastName']
                 },
                 {
-                    model: Trail
+                    model: Trail,
+                    attributes: ["id"]
                 }
             ]
         });
