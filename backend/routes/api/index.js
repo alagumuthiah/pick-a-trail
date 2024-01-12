@@ -8,7 +8,8 @@ const parksRouter = require('./park');
 const trailsRouter = require('./trail');
 const listsRouter = require('./list');
 const reviewsRouter = require('./reviews');
-const markedRouter = require('./completedsavedusertrail');
+const completedRouter = require('./completedTrail');
+const savedRouter = require('./savedTrail');
 const activityRouter = require('./activity');
 const commentRouter = require('./comments');
 
@@ -22,7 +23,9 @@ router.use('/trails', trailsRouter);
 
 router.use('/lists', listsRouter);
 
-router.use('/completedsavedtrails', markedRouter);
+router.use('/completed', completedRouter);
+
+router.use('/saved', savedRouter);
 
 router.use('/reviews', reviewsRouter);
 
