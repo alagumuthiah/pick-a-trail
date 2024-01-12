@@ -15,7 +15,7 @@ router.get('/users/:userId', async (req, res, next) => {
         include: [
             {
                 model: User,
-                attributes: ['firstName', 'lastName']
+                attributes: ['firstName', 'lastName', 'id']
             },
             {
                 model: Trail
@@ -37,7 +37,7 @@ router.get('/trails/:trailId', requireAuth, async (req, res, next) => {
         include: [
             {
                 model: User,
-                attributes: ['firstName', 'lastName']
+                attributes: ['firstName', 'lastName', 'id']
             },
             {
                 model: Trail
@@ -65,22 +65,6 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
             }
         }
         );
-        let updatedData = await SavedTrail.findOne({
-            where: {
-                trailId: req.params.trailId,
-                userId: userId
-            },
-            include: [
-                {
-                    model: User,
-                    attributes: ['firstName', 'lastName']
-                },
-                {
-                    model: Trail
-                }
-            ]
-        });
-        res.json(updatedData);
     } else { //when not found, create a new entry
         let data = {
             UserId: userId,
@@ -88,8 +72,23 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
             saved: true
         }
         const result = await SavedTrail.create(data);
-        res.json(result);
     }
+    let updatedData = await SavedTrail.findOne({
+        where: {
+            trailId: req.params.trailId,
+            userId: userId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['firstName', 'lastName', 'id']
+            },
+            {
+                model: Trail
+            }
+        ]
+    });
+    res.json(updatedData);
 });
 
 module.exports = router;

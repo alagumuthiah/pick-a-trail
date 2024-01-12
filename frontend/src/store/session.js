@@ -61,8 +61,9 @@ export const signUpUser = (userInfo) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         dispatch(setUser(data.user));
+        dispatch(setSavedTrailList(data.user.id));
+        dispatch(setCompletedTrailList(data.user.id));
     }
 
 }
@@ -79,6 +80,8 @@ export const setSessionUser = (user) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(setUser(data.user));
+        dispatch(setSavedTrailList(data.user.id));
+        dispatch(setCompletedTrailList(data.user.id));
     }
 }
 
@@ -86,6 +89,8 @@ export const restoreSessionUser = () => async (dispatch) => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
     dispatch(setUser(data.user));
+    dispatch(setSavedTrailList(data.user.id));
+    dispatch(setCompletedTrailList(data.user.id));
 }
 
 export const logoutUser = () => async (dispatch) => {
@@ -101,12 +106,11 @@ export const logoutUser = () => async (dispatch) => {
 }
 
 export const setSavedTrailList = (userId) => async (dispatch) => {
-    const response = await csrfFetch('/api/saved/' + userId, {
+    const response = await csrfFetch('/api/saved/users/' + userId, {
         method: 'GET'
     });
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         const trailList = [];
         for (let entry of data) {
             trailList.push(entry.Trail.id);
@@ -121,17 +125,16 @@ export const updateSavedTrailList = (trailId) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(setSavedTrailList());
+        dispatch(setSavedTrailList(data.User.id));
     }
 }
 
 export const setCompletedTrailList = (userId) => async (dispatch) => {
-    const response = await csrfFetch('/api/completed/' + userId, {
+    const response = await csrfFetch('/api/completed/users/' + userId, {
         method: 'GET'
     });
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         const trailList = [];
         for (let entry of data) {
             trailList.push(entry.Trail.id);
@@ -146,7 +149,7 @@ export const updateCompletedTrailList = (trailId) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(setCompletedTrailList());
+        dispatch(setCompletedTrailList(data.User.id));
     }
 }
 
