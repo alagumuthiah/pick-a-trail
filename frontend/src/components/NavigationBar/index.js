@@ -24,7 +24,6 @@ export default function NavigationBar() {
     }
 
     const loadProfile = () => {
-        console.log('Load Profile');
         navigate("/members/" + sessionUser.firstName + '-' + sessionUser.lastName, { state: { id: sessionUser.id } });
     }
 

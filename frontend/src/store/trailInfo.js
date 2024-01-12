@@ -13,7 +13,7 @@ const setTrail = (trail) => {
     }
 };
 
-//Action creator to set userInfo for the selected User
+//Action creator to set reviews for the selected Trail
 const setReviews = (reviews) => {
     return {
         type: SET_TRAIL_REVIEWS,
@@ -21,6 +21,7 @@ const setReviews = (reviews) => {
     }
 };
 
+//Action creator to set the users who have completed the selected trail
 const setCompletedList = (completed) => {
     return {
         type: SET_TRAIL_COMPLETED_LIST,
@@ -28,6 +29,8 @@ const setCompletedList = (completed) => {
     }
 }
 
+
+//Action creators to set the activities done for the selected trail
 const setActivities = (activities) => {
     return {
         type: SET_TRAIL_ACTIVITIES_LIST,
@@ -58,7 +61,7 @@ export const setTrailReviews = (trailId) => async (dispatch) => {
 
 export const setTrailCompletedList = (trailId) => async (dispatch) => {
     console.log('Inside Completed List');
-    const response = await csrfFetch('/api/completedsavedtrails/completed/trails/' + trailId);
+    const response = await csrfFetch('/api/completed/trails/' + trailId);
     if (response.ok) {
         const data = await response.json();
         console.log(data);

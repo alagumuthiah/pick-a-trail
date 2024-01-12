@@ -18,6 +18,7 @@ const Community = () => {
     const userList = useSelector((state) => state.userList);
 
     const loadProfile = (user) => {
+        console.log('Inside community load profile');
         navigate("/members/" + user.firstName + '-' + user.lastName, { state: { id: user.id } });
     }
 

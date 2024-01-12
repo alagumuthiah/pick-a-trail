@@ -2,6 +2,10 @@ import { csrfFetch } from "./csrf";
 
 const SET_USER = '/session/setUser';
 const REMOVE_USER = '/session/removeUser';
+const SET_SAVED_LIST = '/session/setSavedList';
+const REMOVE_SAVED_LIST = '/session/removeSavedList';
+const SET_COMPLETED_LIST = '/session/setCompletedList';
+const REMOVE_COMPLETED_LIST = '/session/removeCompletedList';
 
 const setUser = (user) => {  //Action creator to set user
     return {
@@ -15,6 +19,32 @@ const removeUser = () => { // Action creator to remove user
         type: REMOVE_USER
     }
 };
+
+const setSavedList = (trails) => { //Action creator to set the saved trails for the logged in user
+    return {
+        type: SET_SAVED_LIST,
+        trails
+    }
+}
+
+const removeSavedList = () => {
+    return {
+        type: REMOVE_SAVED_LIST
+    }
+}
+
+const setCompletedList = (trails) => {
+    return {
+        type: SET_COMPLETED_LIST,
+        trails
+    }
+}
+
+const removeCompletedList = () => {
+    return {
+        type: REMOVE_COMPLETED_LIST
+    }
+}
 
 //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 export const signUpUser = (userInfo) => async (dispatch) => {
@@ -64,9 +94,62 @@ export const logoutUser = () => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(removeUser(data.user));
+        dispatch(removeUser());
+        dispatch(removeSavedList());
+        dispatch(removeCompletedList());
     }
 }
+
+export const setSavedTrailList = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/saved/' + userId, {
+        method: 'GET'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const trailList = [];
+        for (let entry of data) {
+            trailList.push(entry.Trail.id);
+        }
+        dispatch(setSavedList(trailList));
+    }
+}
+
+export const updateSavedTrailList = (trailId) => async (dispatch) => {
+    const response = await csrfFetch('/api/saved/trails/' + trailId, {
+        method: 'POST'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setSavedTrailList());
+    }
+}
+
+export const setCompletedTrailList = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/completed/' + userId, {
+        method: 'GET'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        const trailList = [];
+        for (let entry of data) {
+            trailList.push(entry.Trail.id);
+        }
+        dispatch(setCompletedList(trailList));
+    }
+}
+
+export const updateCompletedTrailList = (trailId) => async (dispatch) => {
+    const response = await csrfFetch('/api/completed/trails/' + trailId, {
+        method: 'POST'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setCompletedTrailList());
+    }
+}
+
 
 export const sessionReducer = (state = { user: null }, action) => {
     let newState;
@@ -78,6 +161,22 @@ export const sessionReducer = (state = { user: null }, action) => {
         case REMOVE_USER:
             newState = Object.assign({}, state);
             newState.user = null;
+            return newState;
+        case SET_SAVED_LIST:
+            newState = Object.assign({}, state);
+            newState.savedTrails = action.trails;
+            return newState;
+        case REMOVE_SAVED_LIST:
+            newState = Object.assign({}, state);
+            newState.savedTrails = null;
+            return newState;
+        case SET_COMPLETED_LIST:
+            newState = Object.assign({}, state);
+            newState.completedTrails = action.trails;
+            return newState;
+        case REMOVE_COMPLETED_LIST:
+            newState = Object.assign({}, state);
+            newState.completedTrails = null;
             return newState;
         default:
             return state;

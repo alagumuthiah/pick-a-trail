@@ -67,7 +67,7 @@ export const setUserReviews = (userId) => async (dispatch) => {
 
 export const setCompletedList = (userId) => async (dispatch) => {
     console.log('Inside Completed List');
-    const response = await csrfFetch('/api/completedsavedtrails/completed/users/' + userId);
+    const response = await csrfFetch('/api/completed/users/' + userId);
     if (response.ok) {
         const data = await response.json();
         console.log(data);

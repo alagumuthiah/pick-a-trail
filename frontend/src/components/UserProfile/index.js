@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
+//use Effect runs only when navigating through community, it doesn't navigate when the button is clicked from navigation bar
 const UserProfile = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.session.user);
-    console.log(currentUser);
     const userInfo = useSelector((state) => state.userProfile.user);
     const location = useLocation();
     const userId = location.state?.id;
@@ -65,7 +65,7 @@ const UserProfile = () => {
             <h2>User Profile</h2>
             <div className="container">
                 <div className="profile-section">
-                    {currentUser !== null && currentUser?.id === userInfo.id && <button>Edit</button>}
+                    {currentUser !== null && currentUser?.id === userInfo?.id && <button>Edit</button>}
                     <h2>{userInfo?.firstName}  {userInfo?.lastName}</h2>
                     <h3>Location</h3>
                     <h3>Member since</h3>
