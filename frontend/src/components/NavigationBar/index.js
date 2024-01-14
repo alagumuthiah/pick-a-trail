@@ -20,6 +20,7 @@ export default function NavigationBar() {
     const handleLogOut = (event) => {
         event.preventDefault();
         dispatch(logoutUser());
+        setSelectedLink("/explore");
         navigate("/explore");
     }
 

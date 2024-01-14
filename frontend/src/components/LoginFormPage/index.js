@@ -2,7 +2,7 @@
 //import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { setSessionUser } from '../../store/session';
 import './LoginFormPage.css';
 
@@ -25,10 +25,13 @@ export default function Login() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     useEffect(() => {
         if (sessionUser) {
-            navigate("/");
+            console.log(state);
+            const intendedRoute = (state && state.from) || '/';
+            navigate(intendedRoute);
         }
     }, [sessionUser, navigate]);
 

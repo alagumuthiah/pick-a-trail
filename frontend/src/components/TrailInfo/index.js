@@ -23,6 +23,7 @@ const TrailInfo = () => {
     }
 
     useEffect(() => {
+        console.log('Inside useEffect', trailId);
         //to set trailInfo
         dispatch(setTrailInfo(trailId))
             .catch(async (res) => {
@@ -51,7 +52,7 @@ const TrailInfo = () => {
             });
 
 
-    }, [dispatch]);
+    }, [dispatch, trailId]);
     let content;
     switch (activeTab) {
         case 1:

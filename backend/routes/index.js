@@ -13,3 +13,8 @@ router.get("/api/csrf/restore", (req, res) => {
 })
 
 module.exports = router;
+
+/*
+We need to set this CSRF token for the first time
+CSRF token is fetched by using the the above API, this sets the XSRF token in the browser by fetching the csrftoken from the request, so that the XSRF token can be used in the subsequent request so that the server identifies it as the legit client who knows the CSRF token
+*/

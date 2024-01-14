@@ -15,7 +15,9 @@ import List from './components/List';
 import Community from './components/Community';
 import Explore from './components/Explore';
 import TrailInfo from './components/TrailInfo';
+import ProtectedRoute from './utils/ProtectedRoute';
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -27,19 +29,45 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/community" element={<Community />} />
           <Route path="/explore" element={<Explore />} />
-          {/* Use nested routes for the different sections under the UserProfile details section */}
-          <Route path="/members/:userName/*" element={<UserProfile />}>
-            <Route path="feed" element={<FeedSection />} />
-            <Route path="photos" element={<Photos />} />
-            <Route path="reviews" element={<Reviews />} />
-            <Route path="activities" element={<Activities />} />
-            <Route path="completed" element={<Completed />} />
-            <Route path="list" element={<List />} />
+          <Route path="/community" element={
+            <ProtectedRoute>
+              <Community />
+            </ProtectedRoute>} />
+          <Route path="/members/:userName" element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }>
+            <Route path="feed" element={
+              <ProtectedRoute>
+                <FeedSection />
+              </ProtectedRoute>} />
+            <Route path="photos" element={
+              <ProtectedRoute>
+                <Photos />
+              </ProtectedRoute>} />
+            <Route path="reviews" element={
+              <ProtectedRoute>
+                <Reviews />
+              </ProtectedRoute>} />
+            <Route path="activities" element={
+              <ProtectedRoute>
+                <Activities />
+              </ProtectedRoute>} />
+            <Route path="completed" element={
+              <ProtectedRoute>
+                <Completed />
+              </ProtectedRoute>} />
+            <Route path="list" element={
+              <ProtectedRoute>
+                <List />
+              </ProtectedRoute>} />
           </Route>
-
-          <Route path="/trails/:trailName/*" element={<TrailInfo />}>
+          <Route path="/trails/:trailName/*" element={
+            <ProtectedRoute>
+              <TrailInfo />
+            </ProtectedRoute>}>
           </Route>
 
         </Routes>
@@ -48,7 +76,7 @@ function App() {
         </footer>
       </BrowserRouter>
 
-    </div>
+    </div >
   );
 }
 
