@@ -1,15 +1,7 @@
-import { useState } from 'react';
 import { useSelector } from "react-redux"
-import ReviewForm from './reviewForm';
-export const ReviewTrail = () => {
 
-    const [showReviewModal, setShowReviewModal] = useState(false);
+export const ReviewTrail = () => {
     const reviews = useSelector((state) => state.trailInfo.reviews);
-    //Reviews doesn't get loaded after the review is added by the user. Though it gets updated in the database and redux store, it doesn't get reflected in frontend
-    const handleModalClose = () => {
-        console.log('Handle Close');
-        setShowReviewModal(false);
-    }
     let reviewsFormat;
     if (reviews) {
         reviewsFormat = reviews.map((review) => {
@@ -26,10 +18,7 @@ export const ReviewTrail = () => {
 
     return (
         <div>
-            <button className="button-style" onClick={() => setShowReviewModal(true)}>Add a review</button>
-            {showReviewModal && <ReviewForm handleModalClose={handleModalClose} />}
             {reviewsFormat}
-
         </div>
 
     )

@@ -32,10 +32,11 @@ const Card = (props) => {
     return (
 
         <div className="explore-trails" onClick={() => loadTrail(trail)}>
-            <h3>{trail.name} &nbsp; &nbsp; <i onClick={(event) => handleSave(event)} className={savedStyle}></i>&nbsp; &nbsp;{completed ? <i class="fa-solid fa-check"></i> : null}</h3>
+            <h3>{trail.name} &nbsp; &nbsp; <i onClick={(event) => handleSave(event)} className={savedStyle}></i></h3>
+
             {trail.Park && <p>{trail.Park.name}</p>}
             <p>Difficulty:<b>{trail.difficulty}</b> Length:<b>{trail.length}</b></p>
-
+            {completed ? <h3>Completed</h3> : null}
         </div>
     )
 }

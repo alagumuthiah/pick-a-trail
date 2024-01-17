@@ -4,7 +4,6 @@ const SET_TRAIL = '/trailInfo/trail';
 const SET_TRAIL_REVIEWS = '/trailInfo/reviews';
 const SET_TRAIL_COMPLETED_LIST = '/trailInfo/completed';
 const SET_TRAIL_ACTIVITIES_LIST = '/trailInfo/list';
-const ADD_TRAIL_REVIEW = '/trailInfo/add/reviews';
 
 //Action creator to set trailInfo for the selected Trail
 const setTrail = (trail) => {
@@ -36,14 +35,6 @@ const setActivities = (activities) => {
     return {
         type: SET_TRAIL_ACTIVITIES_LIST,
         activities
-    }
-}
-
-const addReview = (review) => {
-    console.log(review);
-    return {
-        type: ADD_TRAIL_REVIEW,
-        review
     }
 }
 
@@ -87,19 +78,6 @@ export const setActivitiesList = (trailId) => async (dispatch) => {
     }
 }
 
-export const addReviewForTrail = (trailId, body) => async (dispatch) => {
-    console.log('NEW TRAIL');
-    console.log(trailId, body);
-    const response = await csrfFetch('/api/reviews/trails/' + trailId, {
-        method: 'POST',
-        body: JSON.stringify(body)
-    });
-    if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        dispatch(addReview(data));
-    }
-}
 
 
 export const trailInfoReducer = (state = {}, action) => {
@@ -112,11 +90,6 @@ export const trailInfoReducer = (state = {}, action) => {
         case SET_TRAIL_REVIEWS:
             newState = Object.assign({}, state);
             newState.reviews = action.reviews
-            return newState;
-        case ADD_TRAIL_REVIEW:
-            newState = Object.assign({}, state);
-            console.log(newState.reviews);
-            newState.reviews[newState.reviews.length] = action.review;
             return newState;
         case SET_TRAIL_COMPLETED_LIST:
             newState = Object.assign({}, state);
