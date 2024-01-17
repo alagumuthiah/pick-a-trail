@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setTrailInfo, setTrailReviews, setTrailCompletedList, setActivitiesList } from '../../store/trailInfo';
+import { updateCompletedTrailList, updateSavedTrailList } from '../../store/session';
+
 import { ReviewTrail } from './review';
 import { ActivityTrail } from './activities';
 import { CompletedTrail } from './completed';
@@ -13,6 +15,8 @@ const TrailInfo = () => {
     const trailInfo = useSelector((state) => state.trailInfo.trail);
     const trailId = location.state?.id;
     const [activeTab, setActiveTab] = useState(1);
+    const savedTrails = useSelector((state) => state.session.savedTrails);
+    const completedTrails = useSelector((state) => state.session.completedTrails);
     const activeTabStyle = {
         'background-color': '#749c4d',
         'font-weight': 'bold'
@@ -53,6 +57,22 @@ const TrailInfo = () => {
 
 
     }, [dispatch, trailId]);
+    const handleCompleteTrail = () => {
+        dispatch(updateCompletedTrailList(trailInfo.id))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            })
+    }
+
+    const handleSavedTrail = () => {
+        dispatch(updateSavedTrailList(trailInfo.id))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            })
+    }
+
     let content;
     switch (activeTab) {
         case 1:
@@ -73,11 +93,12 @@ const TrailInfo = () => {
     if (trailInfo) {
         return (
             <div className="trail-info-card">
-                <h2>{trailInfo.name}</h2>
+                <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i class='fa-regular fa-bookmark'></i> : <i class='fa-solid fa-bookmark'></i>} </button></h2>
                 <h3>{trailInfo.difficulty}</h3>
                 <p>Length:{trailInfo.length}  Elevation Gain:{trailInfo.elevationGain}</p>
                 <h4>Description</h4>
                 <p>{trailInfo.description}</p>
+                <button className="button-style" onClick={handleCompleteTrail}>{completedTrails.indexOf(trailInfo.id) === -1 ? 'Add to Completed' : 'Remove from Completed'}</button>
                 <div className="trail-tabs">
                     <div className="tabs"
                         style={activeTab === 1 ? activeTabStyle : tabStyle}
