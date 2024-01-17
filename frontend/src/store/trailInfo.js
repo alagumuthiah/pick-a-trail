@@ -1,10 +1,14 @@
 import { csrfFetch } from "./csrf";
 
+/*
+NEED TO UPDATE THE STORE WHEN A REVIEW GETS ADDED/ UPDATED
+*/
 const SET_TRAIL = '/trailInfo/trail';
 const SET_TRAIL_REVIEWS = '/trailInfo/reviews';
 const SET_TRAIL_COMPLETED_LIST = '/trailInfo/completed';
 const SET_TRAIL_ACTIVITIES_LIST = '/trailInfo/list';
 const ADD_TRAIL_REVIEW = '/trailInfo/add/reviews';
+const UPDATE_TRAIL_REVIEW = '/trailInfo/update/review';
 
 //Action creator to set trailInfo for the selected Trail
 const setTrail = (trail) => {
@@ -46,6 +50,15 @@ const addReview = (review) => {
         review
     }
 }
+
+const updateReview = (review) => {
+    console.log(review);
+    return {
+        type: UPDATE_TRAIL_REVIEW,
+        review
+    }
+}
+
 
 // //redux thunk is used to dispatch asynchronous action. The setTrailInfo is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
@@ -101,6 +114,21 @@ export const addReviewForTrail = (trailId, body) => async (dispatch) => {
     }
 }
 
+export const updateReviewForTrail = (reviewId, body) => async (dispatch) => {
+    console.log('Review');
+    console.log(reviewId, body);
+    const response = await csrfFetch('/api/reviews/' + reviewId, {
+        method: 'PUT',
+        body: JSON.stringify(body)
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(updateReview(data));
+    }
+}
+
+
 
 export const trailInfoReducer = (state = {}, action) => {
     let newState;
@@ -116,7 +144,11 @@ export const trailInfoReducer = (state = {}, action) => {
         case ADD_TRAIL_REVIEW:
             newState = Object.assign({}, state);
             console.log(newState.reviews);
-            newState.reviews[newState.reviews.length] = action.review;
+            // newState.reviews[newState.reviews.length] = action.review;
+            return newState;
+        case UPDATE_TRAIL_REVIEW:
+            newState = Object.assign({}, state);
+            console.log(newState.reviews);
             return newState;
         case SET_TRAIL_COMPLETED_LIST:
             newState = Object.assign({}, state);

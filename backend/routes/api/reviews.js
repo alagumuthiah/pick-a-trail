@@ -20,7 +20,13 @@ router.get('/users/:userId', async (req, res, next) => {
         },
         include: [{
             model: Trail
-        }]
+        }],
+        attributes: [
+            'id',
+            'starsReview',
+            'comment',
+            'createdAt',
+        ]
     });
     res.json(reviews);
 });
@@ -35,8 +41,14 @@ router.get('/trails/:trailId', async (req, res, next) => {
         include: [
             {
                 model: User,
-                attributes: ['firstName', 'lastName']
+                attributes: ['id', 'firstName', 'lastName']
             }
+        ],
+        attributes: [
+            'id',
+            'starsReview',
+            'comment',
+            'createdAt',
         ]
     });
     res.json(reviews);
@@ -59,7 +71,7 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
     const { rating, comment } = req.body;
     const dataTobeUpdated = {
-        starsReview: rating,
+        starsReview: parseInt(rating),
         comment: comment
     };
     const [rowsUpdated] = await Review.update(dataTobeUpdated,
