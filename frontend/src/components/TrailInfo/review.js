@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from "react-redux"
 import ReviewForm from './reviewForm';
+import ConfirmationModal from './confirmationModal';
 export const ReviewTrail = () => {
 
     const [showReviewModal, setShowReviewModal] = useState(false);
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [selectedReview, setSelectedReview] = useState('');
     const reviews = useSelector((state) => state.trailInfo.reviews);
     const currentUser = useSelector((state) => state.session.user);
@@ -13,15 +15,20 @@ export const ReviewTrail = () => {
         setShowReviewModal(false);
     }
 
+    const handleDeleteModalClose = () => {
+        setShowConfirmationModal(false);
+    }
+
     const handleEditReview = (event, review) => {
         event.preventDefault();
         setSelectedReview(review);
         setShowReviewModal(true);
     }
 
-    const handleDeleteReview = (event) => {
+    const handleDeleteReview = (event, review) => {
         event.preventDefault();
-        console.log('delete review');
+        setSelectedReview(review);
+        setShowConfirmationModal(true);
     }
 
     let reviewsFormat;
@@ -34,14 +41,14 @@ export const ReviewTrail = () => {
             return (
                 <div className="review-section" key={review.id}>
                     <div className="review-header">
-                        <h3>{review.User.firstName}&nbsp;&nbsp;&nbsp;{review.User.lastName}</h3>
+                        <h3>{review?.User?.firstName}&nbsp;&nbsp;&nbsp;{review?.User?.lastName}</h3>
                         {(currentUser.id === review.User.id) &&
                             <>
                                 <button
                                     className="button-style"
                                     onClick={(event) => handleEditReview(event, review)}>Edit</button>
                                 <button className="button-style"
-                                    onClick={handleDeleteReview}>Delete</button>
+                                    onClick={(event) => handleDeleteReview(event, review)}>Delete</button>
                             </>}
                     </div>
 
@@ -59,7 +66,8 @@ export const ReviewTrail = () => {
         <div>
             <button className="button-style" onClick={() => setShowReviewModal(true)}>Add a review</button>
             {showReviewModal && <ReviewForm handleModalClose={handleModalClose} selectedReview={selectedReview} />}
-            {showReviewModal && <div className="overlay" />}
+            {showConfirmationModal && <ConfirmationModal handleModalClose={handleDeleteModalClose} review={selectedReview} />}
+            {(showReviewModal || showConfirmationModal) && <div className="overlay" />}
             {reviewsFormat}
 
         </div>

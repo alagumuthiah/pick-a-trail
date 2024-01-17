@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 /*
-NEED TO UPDATE THE STORE WHEN A REVIEW GETS ADDED/ UPDATED
+NEED TO UPDATE THE STORE WHEN A REVIEW GETS ADDED/ UPDATED /DELETED
 */
 const SET_TRAIL = '/trailInfo/trail';
 const SET_TRAIL_REVIEWS = '/trailInfo/reviews';
@@ -9,6 +9,7 @@ const SET_TRAIL_COMPLETED_LIST = '/trailInfo/completed';
 const SET_TRAIL_ACTIVITIES_LIST = '/trailInfo/list';
 const ADD_TRAIL_REVIEW = '/trailInfo/add/reviews';
 const UPDATE_TRAIL_REVIEW = '/trailInfo/update/review';
+const DELETE_TRAIL_REVIEW = '/trailInfo/delete/review';
 
 //Action creator to set trailInfo for the selected Trail
 const setTrail = (trail) => {
@@ -59,6 +60,11 @@ const updateReview = (review) => {
     }
 }
 
+const deleteReview = () => {
+    return {
+        type: DELETE_TRAIL_REVIEW,
+    }
+}
 
 // //redux thunk is used to dispatch asynchronous action. The setTrailInfo is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
@@ -128,7 +134,16 @@ export const updateReviewForTrail = (reviewId, body) => async (dispatch) => {
     }
 }
 
-
+export const deleteReviewForTrail = (reviewId) => async (dispatch) => {
+    const response = await csrfFetch('/api/reviews/' + reviewId, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(deleteReview());
+    }
+}
 
 export const trailInfoReducer = (state = {}, action) => {
     let newState;
@@ -147,6 +162,10 @@ export const trailInfoReducer = (state = {}, action) => {
             // newState.reviews[newState.reviews.length] = action.review;
             return newState;
         case UPDATE_TRAIL_REVIEW:
+            newState = Object.assign({}, state);
+            console.log(newState.reviews);
+            return newState;
+        case DELETE_TRAIL_REVIEW:
             newState = Object.assign({}, state);
             console.log(newState.reviews);
             return newState;
