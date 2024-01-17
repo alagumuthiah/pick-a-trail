@@ -48,7 +48,7 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
     const data = {
         UserId: parseInt(req.user.id),
         TrailId: parseInt(req.params.trailId),
-        starsReview: rating,
+        starsReview: parseInt(rating),
         comment: comment
     };
     const createdReview = await Review.create(data);
