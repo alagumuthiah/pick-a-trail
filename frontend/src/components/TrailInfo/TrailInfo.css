@@ -1,6 +1,12 @@
 .trail-info-card{
+    display:flex;
+    justify-content: space-between;
+}
+
+.trail-info{
     width:600px;
     text-align: left;
+    margin-right: 20px;
     /* margin:auto; */
 }
 

@@ -8,6 +8,7 @@ import { updateCompletedTrailList, updateSavedTrailList } from '../../store/sess
 import { ReviewTrail } from './review';
 import { ActivityTrail } from './activities';
 import { CompletedTrail } from './completed';
+import StaticMap from '../Maps';
 
 const TrailInfo = () => {
     const location = useLocation();
@@ -92,30 +93,32 @@ const TrailInfo = () => {
     }
     if (trailInfo) {
         return (
+
             <div className="trail-info-card">
-                <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i class='fa-regular fa-bookmark'></i> : <i class='fa-solid fa-bookmark'></i>} </button></h2>
-                <h3>{trailInfo.difficulty}</h3>
-                <p>Length:{trailInfo.length}  Elevation Gain:{trailInfo.elevationGain}</p>
-                <h4>Description</h4>
-                <p>{trailInfo.description}</p>
-                <button className="button-style" onClick={handleCompleteTrail}>{completedTrails.indexOf(trailInfo.id) === -1 ? 'Add to Completed' : 'Remove from Completed'}</button>
-                <div className="trail-tabs">
-                    <div className="tabs"
-                        style={activeTab === 1 ? activeTabStyle : tabStyle}
-                        onClick={() => setActiveTab(1)}>Reviews</div>
-                    <div className="tabs"
-                        style={activeTab === 2 ? activeTabStyle : tabStyle}
-                        onClick={() => setActiveTab(2)}>Photos</div>
-                    <div className="tabs"
-                        style={activeTab === 3 ? activeTabStyle : tabStyle}
-                        onClick={() => setActiveTab(3)}>Activities</div>
-                    <div className="tabs"
-                        style={activeTab === 4 ? activeTabStyle : tabStyle}
-                        onClick={() => setActiveTab(4)}>Completed</div>
+                <StaticMap />
+                <div className="trail-info">
+                    <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i class='fa-regular fa-bookmark'></i> : <i class='fa-solid fa-bookmark'></i>} </button></h2>
+                    <button className="button-style" onClick={handleCompleteTrail}>{completedTrails.indexOf(trailInfo.id) === -1 ? 'Add to Completed' : 'Remove from Completed'}</button>
+                    <h3>{trailInfo.difficulty}</h3>
+                    <p>Length:{trailInfo.length}  Elevation Gain:{trailInfo.elevationGain}</p>
+                    <h4>Description</h4>
+                    <p>{trailInfo.description}</p>
+                    <div className="trail-tabs">
+                        <div className="tabs"
+                            style={activeTab === 1 ? activeTabStyle : tabStyle}
+                            onClick={() => setActiveTab(1)}>Reviews</div>
+                        <div className="tabs"
+                            style={activeTab === 2 ? activeTabStyle : tabStyle}
+                            onClick={() => setActiveTab(2)}>Photos</div>
+                        <div className="tabs"
+                            style={activeTab === 3 ? activeTabStyle : tabStyle}
+                            onClick={() => setActiveTab(3)}>Activities</div>
+                        <div className="tabs"
+                            style={activeTab === 4 ? activeTabStyle : tabStyle}
+                            onClick={() => setActiveTab(4)}>Completed</div>
+                    </div>
+                    {content}
                 </div>
-                {content}
-
-
             </div >
 
         )
