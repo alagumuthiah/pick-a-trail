@@ -25,6 +25,23 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Review',
+    scopes: {
+      selectReview: {
+        attributes: {
+          include:
+            [
+              'id',
+              'starsReview',
+              'comment',
+              'createdAt',
+              'updatedAt',
+              'ActivityId',
+              'UserId',
+              'TrailId'
+            ]
+        }
+      }
+    }
   });
   return Review;
 };

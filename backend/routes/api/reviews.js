@@ -14,19 +14,13 @@ const { requireAuth } = require('../../utils/auth');
 // Returns all the reviews by the user
 router.get('/users/:userId', async (req, res, next) => {
     const userId = req.params.userId;
-    const reviews = await Review.findAll({
+    const reviews = await Review.scope('selectReview').findAll({
         where: {
             userId: userId
         },
         include: [{
             model: Trail
-        }],
-        attributes: [
-            'id',
-            'starsReview',
-            'comment',
-            'createdAt',
-        ]
+        }]
     });
     res.json(reviews);
 });
@@ -34,7 +28,7 @@ router.get('/users/:userId', async (req, res, next) => {
 // Returns all the reviews for a trail - CAN USE LIMIT to load the reviews
 router.get('/trails/:trailId', async (req, res, next) => {
     const trailId = req.params.trailId;
-    const reviews = await Review.findAll({
+    const reviews = await Review.scope('selectReview').findAll({
         where: {
             trailId: trailId
         },
@@ -43,12 +37,6 @@ router.get('/trails/:trailId', async (req, res, next) => {
                 model: User,
                 attributes: ['id', 'firstName', 'lastName']
             }
-        ],
-        attributes: [
-            'id',
-            'starsReview',
-            'comment',
-            'createdAt',
         ]
     });
     res.json(reviews);
@@ -63,8 +51,19 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
         starsReview: parseInt(rating),
         comment: comment
     };
-    const createdReview = await Review.create(data);
-    res.json(createdReview);
+    await Review.create(data);
+    //Querying the last inserted/created Review along with Review Id
+    const newReview = await Review.scope('selectReview').findOne({
+        order: [['createdAt', 'DESC']],
+        limit: 1,
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        ],
+    });
+    res.json(newReview);
 });
 
 //update a review based on the reviewId
@@ -82,10 +81,16 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         });
     console.log(rowsUpdated);
     if (rowsUpdated > 0) {
-        const updatedReview = await Review.findOne({
+        const updatedReview = await Review.scope('selectReview').findOne({
             where: {
                 id: req.params.reviewId
-            }
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
+            ]
         });
         res.json(updatedReview);
     } else {
@@ -102,7 +107,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         }
     });
     if (rowsDeleted > 0) {
-        res.json({ "message": "Deletion successful" });
+        res.json({ "message": "Deletion successful", "id": req.params.reviewId });
     } else {
         res.json({ "message": "No deletion" })
     }

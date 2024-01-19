@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addReviewForTrail, updateReviewForTrail } from "../../store/trailInfo";
 
 const ReviewForm = (props) => {
+    console.log(props);
     const dispatch = useDispatch();
     const [rating, setRating] = useState(props?.selectedReview?.starsReview || '');
     const [comment, setComment] = useState(props?.selectedReview?.comment || '');

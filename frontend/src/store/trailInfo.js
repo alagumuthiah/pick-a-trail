@@ -60,9 +60,10 @@ const updateReview = (review) => {
     }
 }
 
-const deleteReview = () => {
+const deleteReview = (reviewId) => {
     return {
         type: DELETE_TRAIL_REVIEW,
+        reviewId
     }
 }
 
@@ -141,7 +142,7 @@ export const deleteReviewForTrail = (reviewId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         console.log(data);
-        dispatch(deleteReview());
+        dispatch(deleteReview(data.id));
     }
 }
 
@@ -154,20 +155,25 @@ export const trailInfoReducer = (state = {}, action) => {
             return newState;
         case SET_TRAIL_REVIEWS:
             newState = Object.assign({}, state);
-            newState.reviews = action.reviews
+            newState.reviews = {};
+            action.reviews.forEach((review) => {
+                newState.reviews[review.id] = review;
+            });
             return newState;
         case ADD_TRAIL_REVIEW:
             newState = Object.assign({}, state);
-            console.log(newState.reviews);
-            // newState.reviews[newState.reviews.length] = action.review;
+            if (!('reviews' in newState)) {
+                newState.reviews = {};
+            }
+            newState.reviews[action.review.id] = action.review;
             return newState;
         case UPDATE_TRAIL_REVIEW:
             newState = Object.assign({}, state);
-            console.log(newState.reviews);
+            newState.reviews[action.review.id] = action.review;
             return newState;
         case DELETE_TRAIL_REVIEW:
             newState = Object.assign({}, state);
-            console.log(newState.reviews);
+            delete newState.reviews[action.reviewId];
             return newState;
         case SET_TRAIL_COMPLETED_LIST:
             newState = Object.assign({}, state);
