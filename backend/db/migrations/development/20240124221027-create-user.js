@@ -31,6 +31,9 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false
       },
+      location: {
+        type: Sequelize.STRING
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN
       },
@@ -44,6 +47,9 @@ module.exports = {
       following: {
         type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
+      profilePicture: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -51,8 +57,7 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
@@ -60,5 +65,3 @@ module.exports = {
     await queryInterface.dropTable('Users');
   }
 };
-
-//To migrate a file - dotenv npx sequelize db:migrate

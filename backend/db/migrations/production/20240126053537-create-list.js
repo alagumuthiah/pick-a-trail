@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
+    await queryInterface.createTable('Lists', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,22 +14,18 @@ module.exports = {
         allowNull: false,
         references: { model: 'Users' }
       },
-      trailId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Trails' }
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      activityId: {
-        type: Sequelize.INTEGER,
-        references: { model: 'Activities' }
-      },
-      starsReview: {
+      privacy: {
         type: Sequelize.ENUM,
         allowNull: false,
-        values: [1, 2, 3, 4, 5]
+        values: ['Public', 'Followers Only', 'Private'],
+        defaultValue: 'Public'
       },
-      comment: {
-        type: Sequelize.TEXT
+      trailList: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Reviews');
+    await queryInterface.dropTable('Lists');
   }
 };

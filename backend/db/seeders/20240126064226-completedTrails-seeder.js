@@ -12,37 +12,44 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    return await queryInterface.bulkInsert('Activities', [
+    return await queryInterface.bulkInsert('CompletedTrails', [
       {
-        title: 'Best views of Mt Rainier',
-        likes: [1]
+        userId: 3,
+        trailId: 5,
+        completed: true,
       },
       {
-        title: 'A good workout',
-        likes: [2]
+        userId: 2,
+        trailId: 2,
+        completed: true,
+      },
+
+      {
+        userId: 3,
+        trailId: 7,
+        completed: true,
       },
       {
-        title: 'View is the same, not worth it',
-        likes: [1]
-      },
-      {
-        title: 'Awesome views of the island',
-        likes: [1]
+        userId: 2,
+        trailId: 6,
+        completed: true,
       }
     ], {});
   },
 
   async down(queryInterface, Sequelize) {
+
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Activities', {
-      reviewId: {
-        [Op.in]: [1, 5, 8]
+    return queryInterface.bulkDelete('CompletedTrails', {
+      userId: {
+        [Op.in]: [2, 3]
       }
     }, {});
   }
 };
 
+
 /*
-npx sequelize seed:generate --name parks-seeder
+npx sequelize seed:generate --name <seeder-filename>
 dotenv npx sequelize db:seed:all
 */

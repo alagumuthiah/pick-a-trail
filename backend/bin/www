@@ -24,6 +24,9 @@ db.sequelize
 
 
 /*
+npx sequelize-cli migration:generate --name your-migration-name
+
+
  npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,userName:string,email:string,hashedPassword:string,isAdmin:boolean,followers:array:number,following:array:number;
 
 npx sequelize-cli model:generate --name Park --attributes name:string,description:string;

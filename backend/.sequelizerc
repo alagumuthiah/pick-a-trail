@@ -4,5 +4,7 @@ module.exports = {
   config: path.resolve('config', 'database.js'),
   'models-path': path.resolve('db', 'models'),
   'seeders-path': path.resolve('db', 'seeders'),
-  'migrations-path': path.resolve('db', 'migrations')
+  'migrations-path': process.env.NODE_ENV === 'production'
+    ? path.resolve('db', 'migrations', 'production')
+    : path.resolve('db', 'migrations', 'development')
 };

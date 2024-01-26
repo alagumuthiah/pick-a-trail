@@ -13,7 +13,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config, { logging: console.log });
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config, { logging: console.log });
+  sequelize = new Sequelize(config.url, config, { logging: console.log });
 }
 
 fs
@@ -41,3 +41,10 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
+
+
+
+/*
+dotenv npx sequelize-cli db:migrate
+dotenv npx sequelize-cli db:seed:all
+*/

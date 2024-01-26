@@ -7,20 +7,20 @@ module.exports = {
     return await queryInterface.bulkInsert('Lists', [
       {
         name: 'ToDo',
-        userId: 2,
+        userId: 3,
         privacy: 'Followers Only',
-        trailList: JSON.stringify([1, 2])
+        trailList: [2, 3]
       },
       {
         name: 'MyList',
-        userId: 1,
+        userId: 2,
         privacy: 'Public',
-        trailList: JSON.stringify([5, 6])
+        trailList: [5, 6]
       }, {
         name: 'TripPlan',
-        userId: 1,
+        userId: 2,
         privacy: 'Private',
-        trailList: JSON.stringify([1])
+        trailList: [2]
       }
 
     ], {});

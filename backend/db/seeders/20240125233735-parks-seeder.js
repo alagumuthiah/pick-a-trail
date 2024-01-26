@@ -80,8 +80,3 @@ module.exports = {
     }, {});
   }
 };
-
-/*
-npx sequelize seed:generate --name parks-seeder
-dotenv npx sequelize db:seed:all
-*/

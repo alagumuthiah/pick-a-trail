@@ -2,21 +2,21 @@ const config = require('./index');
 
 module.exports = {
   development: {
-    storage: config.dbFile,
-    dialect: "sqlite",
-    seederStorage: "sequelize",
-    logQueryParameters: true,
-    typeValidation: true
+    url: process.env.DATABASE_DEV_URL,
+    dialect: "postgres",
+    logging: true,
+    define: {
+      timestamps: true,
+      underscored: true
+    }
   },
   production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    seederStorage: 'sequelize',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
+    url: process.env.DATABASE_PROD_URL,
+    dialect: "postgres",
+    logging: true,
+    define: {
+      timestamps: true,
+      underscored: true
     }
   }
 };

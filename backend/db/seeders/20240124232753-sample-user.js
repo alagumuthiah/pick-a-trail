@@ -4,15 +4,6 @@ const bcrypt = require('bcryptjs');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
     return await queryInterface.bulkInsert('Users', [
       {
         firstName: 'user1',
@@ -20,8 +11,9 @@ module.exports = {
         userName: 'demouser1',
         email: 'demouser1@gmail.com',
         hashedPassword: bcrypt.hashSync('password'),
+        location: 'Seattle,Washington',
+        provider: 'traditional',
         isAdmin: true,
-        provider: 'traditional'
       },
       {
         firstName: 'user2',
@@ -29,8 +21,9 @@ module.exports = {
         userName: 'demouser2',
         email: 'demouser2@gmail.com',
         hashedPassword: bcrypt.hashSync('password'),
-        isAdmin: false,
-        provider: 'traditional'
+        location: 'San Francisco,California',
+        provider: 'traditional',
+        isAdmin: false
       },
       {
         firstName: 'user3',
@@ -38,8 +31,9 @@ module.exports = {
         userName: 'demouser3',
         email: 'demouser3@gmail.com',
         hashedPassword: bcrypt.hashSync('password'),
-        isAdmin: false,
-        provider: 'traditional'
+        location: 'New York',
+        provider: 'traditional',
+        isAdmin: false
       },
     ], {});
   },
@@ -53,12 +47,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete('Users', {
-      username: { [Op.in]: ['demouser1', 'demouser2', 'demouser3'] }
+      userName: { [Op.in]: ['demouser1', 'demouser2', 'demouser3'] }
     }, {});
   }
 };
-
-/*
-npx sequelize seed:generate --name demo-user
-dotenv npx sequelize db:seed:all
-*/

@@ -2,32 +2,41 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('CompletedSavedUserTrails', {
+    await queryInterface.createTable('Trails', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      name: {
+        type: Sequelize.STRING
+      },
+      parkId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Users' }
+        references: { model: 'Parks' }
       },
-      trailId: {
+      difficulty: {
+        allowNull: false,
+        type: Sequelize.ENUM,
+        values: ['Easy', 'Moderate', 'Hard']
+      },
+      length: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'Trails' }
+        allowNull: false
       },
-      saved: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      elevationGain: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      completed: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+      description: {
+        type: Sequelize.TEXT
+      },
+      images: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
+      tags: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('CompletedSavedUserTrails');
+    await queryInterface.dropTable('Trails');
   }
 };

@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         userName,
         email,
         hashedPassword: hashedPassword,
+        location,
         provider: 'traditional',
         isAdmin: false
       });
@@ -103,6 +104,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       }
     },
+    location: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
     provider: {
       type: DataTypes.ENUM,

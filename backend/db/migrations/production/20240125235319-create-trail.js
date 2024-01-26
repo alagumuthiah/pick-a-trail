@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Parks', {
+    await queryInterface.createTable('Trails', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,16 +10,33 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,
-        unique: true,
         type: Sequelize.STRING
+      },
+      parkId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'Parks' }
+      },
+      difficulty: {
+        allowNull: false,
+        type: Sequelize.ENUM,
+        values: ['Easy', 'Moderate', 'Hard']
+      },
+      length: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      elevationGain: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       description: {
         type: Sequelize.TEXT
       },
-      area: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      images: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
+      },
+      tags: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,
@@ -34,8 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Parks');
+    await queryInterface.dropTable('Trails');
   }
 };
-
-//To migrate a file - dotenv npx sequelize db:migrate
