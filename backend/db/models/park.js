@@ -48,16 +48,30 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      field: 'name'
     },
-    description: DataTypes.TEXT,
+    description: {
+      type: DataTypes.TEXT,
+      field: 'description'
+    },
     area: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: 'area'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
     }
   }, {
     sequelize,
     modelName: 'Park',
+    tableName: 'Parks',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]

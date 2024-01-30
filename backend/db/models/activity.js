@@ -11,16 +11,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Activity.hasOne(models.Review);
+      // Activity.hasOne(models.Review);
       //Activity.belongsToMany(models.User, { through: models.Comment });
     }
   }
   Activity.init({
     title: DataTypes.STRING,
-    likes: DataTypes.ARRAY(DataTypes.INTEGER)
+    likes: DataTypes.ARRAY(DataTypes.INTEGER),
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
     modelName: 'Activity',
+    tableName: 'Activities'
   });
   return Activity;
 };

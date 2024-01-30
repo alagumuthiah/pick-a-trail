@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Review, Trail, User } = require('../../db/models');
+const { Review, Trail, User, Activity } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 // GET /reviews/:userId - Returns all the reviews by the user - Done
@@ -19,7 +19,10 @@ router.get('/users/:userId', async (req, res, next) => {
             userId: userId
         },
         include: [{
-            model: Trail
+            model: Trail,
+        },
+        {
+            model: Activity
         }]
     });
     res.json(reviews);
@@ -46,8 +49,8 @@ router.get('/trails/:trailId', async (req, res, next) => {
 router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
     const { rating, comment } = req.body;
     const data = {
-        UserId: parseInt(req.user.id),
-        TrailId: parseInt(req.params.trailId),
+        userId: parseInt(req.user.id),
+        trailId: parseInt(req.params.trailId),
         starsReview: parseInt(rating),
         comment: comment
     };

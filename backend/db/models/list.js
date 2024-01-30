@@ -19,16 +19,33 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'userId',
+      allowNull: false
+    },
     privacy: {
       type: DataTypes.ENUM,
       values: ['Public', 'Followers Only', 'Private'],
       defaultValue: 'Public',
       allowNull: false
     },
-    trailList: DataTypes.STRING
+    trailList: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      field: 'trailList'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
     modelName: 'List',
+    tableName: 'Lists',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]

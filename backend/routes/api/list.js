@@ -73,13 +73,13 @@ router.put('/:listId', requireAuth, async (req, res, next) => {
     let listTobeUpdated = await List.findByPk(listId);
     if (listTobeUpdated) {
         if (listTobeUpdated.userId === req.user.id) {
-            let trailList = JSON.parse(listTobeUpdated.trailList);
+            let trailList = listTobeUpdated.trailList;
             if (!trailList) {
                 trailList = [trailId];
             } else {
                 trailList.push(trailId);
             }
-            await listTobeUpdated.update({ trailList: JSON.stringify(trailList) });
+            await listTobeUpdated.update({ trailList: trailList });
             res.json(listTobeUpdated);
         } else {
             const err = new Error('Access Forbidden');

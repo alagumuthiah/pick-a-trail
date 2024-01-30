@@ -20,13 +20,13 @@ router.get('/users/:userId', async (req, res, next) => {
             {
                 model: Trail
             },
-        ],
+        ]
     });
     res.json(savedTrails);
 });
 
 
-/*GET all completed users with trailId */
+/*GET all users with trailId who has saved this trail*/
 
 router.get('/trails/:trailId', requireAuth, async (req, res, next) => {
     let usersList = await SavedTrail.findAll({

@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Trail.belongsTo(models.Park, { foreignKey: 'parkId', sourceKey: 'id' });
-      Trail.belongsToMany(models.User, { through: models.CompletedTrail });
-      Trail.belongsToMany(models.User, { through: models.SavedTrail });
-      Trail.belongsToMany(models.User, { through: models.Review });
+      // Trail.hasMany(models.CompletedTrail);
+      // Trail.hasMany(models.SavedTrail);
+      // Trail.belongsToMany(models.User, { through: models.Review });
     }
   }
 
@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    parkId: {
+      type: DataTypes.INTEGER,
+      field: 'parkId'
     },
     difficulty: {
       type: DataTypes.ENUM,
@@ -30,16 +34,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     elevationGain: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: 'elevationGain'
     },
     description: DataTypes.TEXT,
     images: DataTypes.ARRAY(DataTypes.STRING),
     tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING) //validation to be added, the array values has to be one of the following - ['Dog friendly', 'hiking', 'forest', 'lake', 'falls']
+      type: DataTypes.ARRAY(DataTypes.STRING), //validation to be added, the array values has to be one of the following - ['Dog friendly', 'hiking', 'forest', 'lake', 'falls']
+
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
     }
   }, {
     sequelize,
     modelName: 'Trail',
+    tableName: 'Trails',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]

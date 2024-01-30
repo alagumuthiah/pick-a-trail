@@ -11,20 +11,48 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsTo(models.User);
-      Review.belongsTo(models.Trail);
-      Review.belongsTo(models.Activity);
+      Review.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
+      Review.belongsTo(models.Trail, {
+        foreignKey: 'trailId'
+      });
+      Review.belongsTo(models.Activity, {
+        foreignKey: 'activityId'
+      });
     }
   }
   Review.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'userId'
+    },
+    trailId: {
+      type: DataTypes.INTEGER,
+      field: 'trailId'
+    },
+    activityId: {
+      type: DataTypes.INTEGER,
+      field: 'activityId'
+    },
     starsReview: {
       type: DataTypes.ENUM,
-      values: ['1', '2', '3', '4', '5']
+      values: ['1', '2', '3', '4', '5'],
+      field: 'starsReview'
     },
-    comment: DataTypes.TEXT
+    comment: DataTypes.TEXT,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
     modelName: 'Review',
+    tableName: 'Reviews',
     scopes: {
       selectReview: {
         attributes: {
@@ -35,9 +63,9 @@ module.exports = (sequelize, DataTypes) => {
               'comment',
               'createdAt',
               'updatedAt',
-              'ActivityId',
-              'UserId',
-              'TrailId'
+              'activityId',
+              'userId',
+              'trailId'
             ]
         }
       }

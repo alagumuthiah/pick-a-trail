@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            username: credential,
+            userName: credential,
             email: credential
           }
         }
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
-    static async signup({ firstName, lastName, userName, email, password }) {
+    static async signup({ firstName, lastName, userName, email, password, location }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         firstName,
@@ -56,18 +56,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.List, { foreignKey: 'userId', targetKey: 'id' });
-      User.belongsToMany(models.Trail, { through: models.CompletedTrail });
-      User.belongsToMany(models.Trail, { through: models.SavedTrail });
-      User.belongsToMany(models.Trail, { through: models.Review });
+      // User.hasMany(models.CompletedTrail);
+      // User.hasMany(models.SavedTrail);
+      // User.belongsToMany(models.Trail, { through: models.Review });
       // User.belongsToMany(models.Activity, {
       //   through: models.Comment
       // });
+      // User.hasMany(models.Review);
     }
   }
   User.init({
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'firstName',
       validate: {
         len: [4, 30],
       }
@@ -75,6 +77,7 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'lastName',
       validate: {
         len: [4, 30]
       }
@@ -83,6 +86,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      field: 'userName',
       validate: {
         len: [4, 30]
       }
@@ -91,6 +95,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      field: 'email',
       validate: {
         isEmail: {
           msg: 'Invalid email format. Please provide a valid email address.'
@@ -102,18 +107,39 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [60, 60]
-      }
+      },
+      field: 'hashedPassword'
     },
-    location: DataTypes.STRING,
-    isAdmin: DataTypes.BOOLEAN,
+    location: {
+      type: DataTypes.STRING,
+      field: 'location'
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      field: 'profilePicture'
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      field: 'isAdmin',
+    },
     provider: {
       type: DataTypes.ENUM,
-      values: ['traditional', 'google', 'github', 'facebook']
+      values: ['traditional', 'google', 'github', 'facebook'],
+      field: 'provider'
     },
     followers: DataTypes.ARRAY(DataTypes.INTEGER),
-    following: DataTypes.ARRAY(DataTypes.INTEGER)
+    following: DataTypes.ARRAY(DataTypes.INTEGER),
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
+    tableName: 'Users',
     modelName: 'User',
     defaultScope: {
       attributes: {

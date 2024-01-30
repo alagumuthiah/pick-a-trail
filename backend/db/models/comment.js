@@ -16,10 +16,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Comment.init({
-    comments: DataTypes.TEXT
+    comments: DataTypes.TEXT,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
     modelName: 'Comment',
+    tableName: 'Comments'
   });
   return Comment;
 };

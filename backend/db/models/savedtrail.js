@@ -11,14 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      SavedTrail.belongsTo(models.User);
-      SavedTrail.belongsTo(models.Trail);
+      SavedTrail.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
+      SavedTrail.belongsTo(models.Trail, {
+        foreignKey: 'trailId'
+      });
     }
   }
   SavedTrail.init({
-    saved: DataTypes.BOOLEAN
+    saved: DataTypes.BOOLEAN,
+    userId: {
+      type: DataTypes.INTEGER,
+      field: 'userId'
+    },
+    trailId: {
+      type: DataTypes.INTEGER,
+      field: 'trailId'
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'createdAt'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updatedAt'
+    }
   }, {
     sequelize,
+    tableName: 'SavedTrails',
     modelName: 'SavedTrail',
   });
   return SavedTrail;
