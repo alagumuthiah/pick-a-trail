@@ -67,8 +67,8 @@ router.post('/trails/:trailId', requireAuth, async (req, res, next) => {
         );
     } else { //when not found, create a new entry
         let data = {
-            UserId: userId,
-            TrailId: req.params.trailId,
+            userId: userId,
+            trailId: req.params.trailId,
             saved: true
         }
         const result = await SavedTrail.create(data);

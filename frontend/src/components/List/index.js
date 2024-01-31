@@ -1,11 +1,23 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import './List.css';
+import { setSelectedList } from "../../store/userProfile";
 
 const List = () => {
+    const navigate = useNavigate();
     const savedList = useSelector((state) => state.userProfile.lists);
+    const dispatch = useDispatch();
     let savedListFormat;
-    const handleListClick = (id) => {
-        console.log('Clicked', id);
+    const handleListClick = (list) => {
+        console.log('Clicked', list.id);
+        dispatch(setSelectedList(list.id))
+            .then(() => {
+                navigate("/lists/" + list.name);
+            })
+            .catch(async (res) => {
+                console.log('Error');
+                console.log(res);
+            })
     }
 
     if (savedList && savedList.length === 0) {
@@ -14,16 +26,15 @@ const List = () => {
         )
     } else if (savedList) {
         savedListFormat = savedList.map((list) => {
-            const trails = list.trailList.split(',');
             return (
                 <>
-                    <div onClick={() => handleListClick(list.id)} className="list-item" >
+                    <div onClick={() => handleListClick(list)} className="list-item" >
                         <div>
                             <h3>Image</h3>
                         </div>
                         <div>
                             <h3>{list.name}</h3>
-                            <h4>{trails.length} items</h4>
+                            <h4>{list.trailList.length} items</h4>
                         </div>
 
                     </div >

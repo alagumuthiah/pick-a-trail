@@ -16,6 +16,7 @@ import Community from './components/Community';
 import Explore from './components/Explore';
 import TrailInfo from './components/TrailInfo';
 import ProtectedRoute from './utils/ProtectedRoute';
+import ListDetails from './components/ListDetails';
 function App() {
 
   return (
@@ -64,11 +65,17 @@ function App() {
                 <List />
               </ProtectedRoute>} />
           </Route>
+          <Route path="/lists/:listName" element={
+            <ProtectedRoute>
+              <ListDetails />
+            </ProtectedRoute>}>
+          </Route>
           <Route path="/trails/:trailName/*" element={
             <ProtectedRoute>
               <TrailInfo />
             </ProtectedRoute>}>
           </Route>
+
 
         </Routes>
         <footer>

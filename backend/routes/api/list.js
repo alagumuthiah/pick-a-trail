@@ -41,17 +41,15 @@ router.get('/:listId', requireAuth, async (req, res, next) => {
 
     if (selectedList && selectedList.trailList) {
         let trails = selectedList.trailList;
-        const result = JSON.parse(trails);
-        console.log(result.length);
-        trails = [];
+        let trailsInfo = [];
         //Lazy loading of the trails info
-        for (let index = 0; index < result.length; index++) {
-            const trailInfo = await Trail.findByPk(result[index]);
-            trails.push(trailInfo);
+        for (let index = 0; index < trails.length; index++) {
+            const trailInfo = await Trail.findByPk(trails[index]);
+            trailsInfo.push(trailInfo);
         }
         res.json({
             selectedList,
-            trails
+            trailsInfo
         });
     } else {
         res.json(selectedList);

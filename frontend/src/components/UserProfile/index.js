@@ -67,9 +67,10 @@ const UserProfile = () => {
                 <div className="profile-section">
                     {currentUser !== null && currentUser?.id === userInfo?.id && <button>Edit</button>}
                     <h2>{userInfo?.firstName}  {userInfo?.lastName}</h2>
-                    <h3>Location</h3>
+                    <p>{userInfo?.location}</p>
                     <h3>Member since</h3>
                     <h4>Followers | Following</h4>
+                    <h4>{userInfo?.followers === null ? 0 : userInfo?.followers.length} | {userInfo?.following === null ? 0 : userInfo?.following?.length}</h4>
                     <NavLink className="link-tags" to="list"
                         onClick={() => setActiveTab(1)}
                         style={activeTab === 1 ? activeLinkStyle : linkStyle}>List</NavLink>

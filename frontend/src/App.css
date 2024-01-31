@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+
+.trail-card-list{
+  display:flex;
+  flex-direction:column;
+  margin-bottom:150px;
+}

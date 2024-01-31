@@ -3,7 +3,7 @@ import './Review.css';
 
 const Reviews = () => {
     const userReviews = useSelector((state) => state.userProfile.reviews);
-    if (userReviews.length === 0) {
+    if (userReviews?.length === 0) {
         return (
             <h3>No Review posted by this user</h3>
         )

@@ -5,6 +5,7 @@ const SET_REVIEWS = '/userProfile/reviews';
 const SET_LIST = '/userProfile/saved/list';
 const SET_COMPLETED_LIST = '/userProfile/completed';
 const SET_ACTIVITIES_LIST = '/userProfile/list';
+const SET_SELECTED_LIST = '/userProfile/selectedList';
 
 //Action creator to set userInfo for the selected User
 const setUser = (user) => {
@@ -39,6 +40,13 @@ const setActivities = (activities) => {
 const setList = (lists) => {
     return {
         type: SET_LIST,
+        lists
+    }
+}
+
+const setCurrentList = (lists) => {
+    return {
+        type: SET_SELECTED_LIST,
         lists
     }
 }
@@ -93,6 +101,14 @@ export const setSavedList = (userId) => async (dispatch) => {
     }
 }
 
+export const setSelectedList = (listId) => async (dispatch) => {
+    const response = await csrfFetch('/api/lists/' + listId);
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setCurrentList(data));
+    }
+}
 
 
 export const userProfileReducer = (state = {}, action) => {
@@ -117,6 +133,13 @@ export const userProfileReducer = (state = {}, action) => {
         case SET_LIST:
             newState = Object.assign({}, state);
             newState.lists = action.lists;
+            return newState;
+        case SET_SELECTED_LIST:
+            newState = Object.assign({}, state);
+            console.log(action.lists.selectedList);
+            newState.selectedList = {};
+            newState.selectedList.name = action.lists.selectedList.name;
+            newState.selectedList.trailsList = action.lists.trailsInfo;
             return newState;
         default:
             return state;
