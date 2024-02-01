@@ -57,4 +57,19 @@ router.get('/:userId', async (req, res) => {
     console.log(users);
     return res.json(users);
 })
+
+router.get('/:userId/followers', async (req, res) => {
+    const users = await User.findByPk(req.params.userId);
+    console.log(users.followers);
+    let followersList = [];
+    return res.json(users.followers);
+});
+
+router.get('/:userId/following', async (req, res) => {
+    const users = await User.findByPk(req.params.userId);
+    console.log(users.following);
+    let followingList = [];
+    return res.json(users.following);
+});
+
 module.exports = router;

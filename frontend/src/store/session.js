@@ -153,6 +153,25 @@ export const updateCompletedTrailList = (trailId) => async (dispatch) => {
     }
 }
 
+export const addFollowing = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/session/add/following/' + userId, {
+        method: 'PUT'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data));
+    }
+}
+
+export const removeFollowing = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/session/remove/following/' + userId, {
+        method: 'PUT'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data));
+    }
+}
 
 export const sessionReducer = (state = { user: null }, action) => {
     let newState;

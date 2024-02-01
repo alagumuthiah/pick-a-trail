@@ -7,6 +7,7 @@ const { User } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { requireAuth } = require('../../utils/auth');
 
 const validateLogin = [
     check('credential')
@@ -59,6 +60,45 @@ router.delete('/', (req, res) => {
     res.clearCookie('token');
     return res.json({ message: 'success' });
 });
+
+//This method is invoked when the follow button is clicked by the logged in user
+router.put('/add/following/:userId', requireAuth, async (req, res) => {
+    const currentUserId = parseInt(req.user.id);
+    const followedUserId = parseInt(req.params.userId);
+    console.log(currentUserId, followedUserId);
+    const currentUser = await User.findByPk(currentUserId);
+    const followedUser = await User.findByPk(followedUserId);
+    if (!currentUser.following) {
+        currentUser.following = [];
+    }
+    let following = [...currentUser.following, followedUserId];
+    currentUser.following = following;
+
+    if (!followedUser.followers) {
+        followedUser.followers = [];
+    }
+    let followers = [...followedUser.followers, currentUserId];
+    followedUser.followers = followers;
+
+    await currentUser.save();
+    await followedUser.save();
+    return res.json(currentUser);
+});
+
+//this method is invoked when unfollow button is clicked by the logged in user
+router.put('/remove/following/:userId', requireAuth, async (req, res) => {
+    const currentUserId = parseInt(req.user.id);
+    const followedUserId = parseInt(req.params.userId);
+    const currentUser = await User.findByPk(currentUserId);
+    const followedUser = await User.findByPk(followedUserId);
+    currentUser.following = currentUser.following.filter((userId) => userId !== followedUserId);
+    await currentUser.save();
+    followedUser.followers = followedUser.followers.filter((userId) => userId !== currentUserId);
+    await followedUser.save();
+    return res.json(currentUser);
+});
+
+
 
 // router.get('/login/sucess', (req, res, next) => {
 //     console.log('Login Sucess');
