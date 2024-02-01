@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux"
 import ReviewForm from './reviewForm';
 import ConfirmationModal from './confirmationModal';
 export const ReviewTrail = () => {
-
     const [showReviewModal, setShowReviewModal] = useState(false);
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [selectedReview, setSelectedReview] = useState('');
@@ -11,6 +10,9 @@ export const ReviewTrail = () => {
     console.log(reviews);
     const currentUser = useSelector((state) => state.session.user);
     //Reviews doesn't get loaded after the review is added by the user. Though it gets updated in the database and redux store, it doesn't get reflected in frontend
+    useEffect(() => {
+        console.log('Run useEffect');
+    }, [reviews]);
 
     const handleModalClose = () => {
         setShowReviewModal(false);

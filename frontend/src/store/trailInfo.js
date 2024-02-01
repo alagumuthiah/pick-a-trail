@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import cloneDeep from "lodash/cloneDeep";
 
 /*
 NEED TO UPDATE THE STORE WHEN A REVIEW GETS ADDED/ UPDATED /DELETED
@@ -150,7 +151,7 @@ export const trailInfoReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case SET_TRAIL:
-            newState = Object.assign({}, state);
+            newState = Object.assign({}, state); //copies deep copy of the first level keys, but do a shallow copy of the nested objects/arrays
             newState.trail = action.trail;
             return newState;
         case SET_TRAIL_REVIEWS:
@@ -161,18 +162,18 @@ export const trailInfoReducer = (state = {}, action) => {
             });
             return newState;
         case ADD_TRAIL_REVIEW:
-            newState = Object.assign({}, state);
+            newState = cloneDeep(state); //cloneDeep from lodash is used to do deep copy of the nested objects
             if (!('reviews' in newState)) {
                 newState.reviews = {};
             }
             newState.reviews[action.review.id] = action.review;
             return newState;
         case UPDATE_TRAIL_REVIEW:
-            newState = Object.assign({}, state);
+            newState = cloneDeep(state);
             newState.reviews[action.review.id] = action.review;
             return newState;
         case DELETE_TRAIL_REVIEW:
-            newState = Object.assign({}, state);
+            newState = cloneDeep(state);
             delete newState.reviews[action.reviewId];
             return newState;
         case SET_TRAIL_COMPLETED_LIST:
