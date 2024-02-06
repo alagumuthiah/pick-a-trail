@@ -8,9 +8,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Trail.belongsTo(models.Park, { foreignKey: 'parkId', sourceKey: 'id' });
-      // Trail.hasMany(models.CompletedTrail);
-      // Trail.hasMany(models.SavedTrail);
-      // Trail.belongsToMany(models.User, { through: models.Review });
+      Trail.belongsToMany(models.User, {
+        through: models.SavedTrail,
+        foreignKey: 'trailId',
+        otherKey: 'userId'
+      });
+      Trail.hasMany(models.SavedTrail, { foreignKey: 'trailId' });
+      Trail.belongsToMany(models.User, {
+        through: models.CompletedTrail,
+        foreignKey: 'trailId',
+        otherKey: 'userId'
+      });
+      Trail.hasMany(models.CompletedTrail, {
+        foreignKey: 'trailId'
+      });
+      Trail.hasMany(models.Review, {
+        foreignKey: 'trailId'
+      });
     }
   }
 

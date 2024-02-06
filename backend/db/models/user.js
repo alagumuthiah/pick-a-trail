@@ -55,14 +55,32 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      User.hasMany(models.List, { foreignKey: 'userId', targetKey: 'id' });
-      // User.hasMany(models.CompletedTrail);
-      // User.hasMany(models.SavedTrail);
-      // User.belongsToMany(models.Trail, { through: models.Review });
-      // User.belongsToMany(models.Activity, {
-      //   through: models.Comment
-      // });
-      // User.hasMany(models.Review);
+      //we are defining both belongToMany association and other associations hasMany and belongTo so that we can perform eager loading - all include operations
+      User.belongsToMany(models.Trail, {
+        through: models.SavedTrail,
+        foreignKey: 'userId',
+        otherKey: 'trailId'
+      });
+      User.hasMany(models.SavedTrail, { foreignKey: 'userId' });
+      User.belongsToMany(models.Trail, {
+        through: models.CompletedTrail,
+        foreignKey: 'userId',
+        otherKey: 'trailId'
+      });
+      User.hasMany(models.CompletedTrail, {
+        foreignKey: 'userId'
+      });
+      User.hasMany(models.List, {
+        foreignKey: 'userId',
+        sourceKey: 'id'
+      });
+      User.hasMany(models.Review, {
+        foreignKey: 'userId'
+      });
+      User.hasMany(models.Comment, {
+        foreignKey: 'userId'
+      });
+
     }
   }
   User.init({

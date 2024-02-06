@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { Comment, Activity } = require('../../db/models');
+const { Comment, User } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 
@@ -13,6 +13,12 @@ router.get('/activities/:activityId', requireAuth, async (req, res, next) => {
         where: {
             activityId: req.params.activityId
         },
+        include: [
+            {
+                model: User,
+                attributes: ['firstName', 'lastName']
+            },
+        ],
         attributes: ['id', 'userId', 'activityId', 'comments', 'updatedAt']
     });
 
