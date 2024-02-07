@@ -6,7 +6,7 @@ const Completed = () => {
     if (completedTrails) {
         trailsList = completedTrails.map((trail) => {
             return (
-                <>
+                <div key={trail.trailId}>
                     <h3>
                         {trail.Trail.name}
                     </h3>
@@ -17,14 +17,14 @@ const Completed = () => {
                         Elevation Gain: {trail.Trail.elevationGain} metres
                     </h4>
                     <hr />
-                </>
+                </div>
             )
         });
     }
 
     return (
         <>
-            <h2>Completed</h2>
+            {/* <h2>Completed</h2> */}
             {trailsList}
         </>
 

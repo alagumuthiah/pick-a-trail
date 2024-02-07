@@ -11,7 +11,7 @@ const ListDetails = () => {
     } else {
         trailListFormat = selectedList?.trailsList.map((trail) => {
             return (
-                <Card trail={trail} />
+                <Card key={trail.id} trail={trail} />
             )
         });
     }

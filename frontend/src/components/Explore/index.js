@@ -22,22 +22,20 @@ const Explore = () => {
     if (trailList) {
         trailListFormat = trailList.map((trail) => {
             return (
-                <Card trail={trail} />
+                <Card key={trail.id} trail={trail} />
             )
         });
     }
 
     return (
-        <>
-            <div>
-                <h1>Explore</h1>
-                <p>Trail List</p>
-                <div className="trail-card-list">
-                    {trailListFormat}
-                </div>
-
+        <div>
+            <h1>Explore</h1>
+            <p>Trail List</p>
+            <div className="trail-card-list">
+                {trailListFormat}
             </div>
-        </>
+
+        </div>
     )
 }
 

@@ -25,6 +25,7 @@ export default function NavigationBar() {
     }
 
     const loadProfile = () => {
+        console.log('Inside load profile , button clicked');
         navigate("/members/" + sessionUser.firstName + '-' + sessionUser.lastName, { state: { id: sessionUser.id } });
     }
 
@@ -52,7 +53,7 @@ export default function NavigationBar() {
             </Link>
 
             {sessionUser &&
-                <button onClick={loadProfile}>{sessionUser.firstName} {sessionUser.lastName}</button>
+                <button onClick={() => loadProfile()}>{sessionUser.firstName} {sessionUser.lastName}</button>
             }
             {sessionUser ?
                 <Link className="link--navbar" to="/logout">

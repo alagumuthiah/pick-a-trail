@@ -16,7 +16,7 @@ const Activities = () => {
             let month = createdDate.toLocaleString('en-US', { month: 'long' });
             let year = createdDate.getFullYear();
             return (
-                <div id={activity.id}>
+                <div key={activity.id}>
                     <h2>{activity.title}</h2>
                     <h3>{month},{year}</h3>
                     <p>Length : {activity.Review.Trail.length}</p>

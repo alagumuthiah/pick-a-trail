@@ -89,7 +89,7 @@ const TrailInfo = () => {
             content = <CompletedTrail />;
             break;
         default:
-            content = <div>Unknown option</div>;
+            content = null;
     }
     if (trailInfo) {
         return (
@@ -97,7 +97,7 @@ const TrailInfo = () => {
             <div className="trail-info-card">
                 <StaticMap />
                 <div className="trail-info">
-                    <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i class='fa-regular fa-bookmark'></i> : <i class='fa-solid fa-bookmark'></i>} </button></h2>
+                    <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i className='fa-regular fa-bookmark'></i> : <i className='fa-solid fa-bookmark'></i>} </button></h2>
                     <button className="button-style" onClick={handleCompleteTrail}>{completedTrails.indexOf(trailInfo.id) === -1 ? 'Add to Completed' : 'Remove from Completed'}</button>
                     <h3>{trailInfo.difficulty}</h3>
                     <p>Length:{trailInfo.length}  Elevation Gain:{trailInfo.elevationGain}</p>

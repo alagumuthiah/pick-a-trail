@@ -10,7 +10,7 @@ const Reviews = () => {
     } else {
         let reviewsFormat = userReviews.map((review) => {
             return (
-                <div className="review-section">
+                <div key={review.id} className="review-section">
                     <h3>{review.Trail.name}</h3>
                     <p>{review.starsReview}</p>
                     <p>{review.comment}</p>

@@ -27,7 +27,7 @@ const List = () => {
     } else if (savedList) {
         savedListFormat = savedList.map((list) => {
             return (
-                <>
+                <div key={list.id}>
                     <div onClick={() => handleListClick(list)} className="list-item" >
                         <div>
                             <h3>Image</h3>
@@ -39,7 +39,7 @@ const List = () => {
 
                     </div >
                     <hr />
-                </>
+                </div>
 
             )
         })

@@ -7,7 +7,10 @@ export const CompletedTrail = () => {
     if (completed) {
         completedFormat = completed.map((trail) => {
             return (
-                <h3>{trail.User.firstName}{trail.User.lastName}</h3>
+                <div key={trail.User.id}>
+                    <h3>{trail.User.firstName}{trail.User.lastName}</h3>
+                </div>
+
             )
         })
     }

@@ -12,17 +12,19 @@ const UserProfile = () => {
     const userInfo = useSelector((state) => state.userProfile.user);
     const location = useLocation();
     const userId = location.state?.id;
-    const [activeTab, setActiveTab] = useState(2);
+    console.log(userId);
+    const [activeTab, setActiveTab] = useState();
     const activeLinkStyle = {
-        'background-color': '#569d0f',
-        'font-weight': 'bold',
-        'text-decoration': 'underline'
+        'backgroundColor': '#569d0f',
+        'fontWeight': 'bold',
+        'textDecoration': 'underline'
     }
 
     const linkStyle = {
         'color': 'white'
     }
     useEffect(() => {
+        console.log('INSIDE USER use Effect');
         //to set the userInfo in the store
         dispatch(setUserInfo(userId))
             .catch(async (res) => {

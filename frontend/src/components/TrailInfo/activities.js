@@ -10,7 +10,7 @@ export const ActivityTrail = () => {
             let year = createdDate.getFullYear();
             let day = createdDate.getDay();
             return (
-                <div id={activity.id}>
+                <div key={activity.id}>
                     <h2>{activity.title}</h2>
                     <h3>{month},{day},{year}</h3>
                     <p>Review:{activity.Review.starsReview}</p>
