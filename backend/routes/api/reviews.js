@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const sequelize = require('sequelize');
 
 const { Review, Trail, User, Activity } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
@@ -26,6 +27,40 @@ router.get('/users/:userId', async (req, res, next) => {
         }]
     });
     res.json(reviews);
+});
+
+//Returns the average review by userId
+router.get('/average/users/:userId', async (req, res, next) => {
+    const userId = req.params.userId;
+    const userReviews = await Review.findAll({
+        where: { userId: userId },
+        attributes: ['starsReview'], // Select the ENUM column
+    });
+    console.log(userReviews);
+    const userReviewsInteger = userReviews.map(review => parseInt(review.starsReview));
+
+    // Calculate the average of integer values
+    const sum = userReviewsInteger.reduce((acc, val) => acc + val, 0);
+    const average = (sum / userReviewsInteger.length).toFixed(2);
+
+    res.json({ average });
+});
+
+//Returns the average review by trailId
+router.get('/average/trails/:trailId', async (req, res, next) => {
+    const trailId = req.params.trailId;
+    const trailReviews = await Review.findAll({
+        where: { trailId: trailId },
+        attributes: ['starsReview'], // Select the ENUM column
+    });
+
+    const trailReviewsInteger = trailReviews.map(review => parseInt(review.starsReview));
+
+    // Calculate the average of integer values
+    const sum = trailReviewsInteger.reduce((acc, val) => acc + val, 0);
+    const average = (sum / trailReviewsInteger.length).toFixed(2);
+
+    res.json({ average });
 });
 
 // Returns all the reviews for a trail - CAN USE LIMIT to load the reviews

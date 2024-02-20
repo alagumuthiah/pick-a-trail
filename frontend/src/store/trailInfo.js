@@ -11,6 +11,8 @@ const SET_TRAIL_ACTIVITIES_LIST = '/trailInfo/list';
 const ADD_TRAIL_REVIEW = '/trailInfo/add/reviews';
 const UPDATE_TRAIL_REVIEW = '/trailInfo/update/review';
 const DELETE_TRAIL_REVIEW = '/trailInfo/delete/review';
+const SET_AVERAGE_REVIEW = '/trailInfo/add/average/review';
+// const UPDATE_AVERAGE_REVIEW = '/trailInfo/update/average/review';
 
 //Action creator to set trailInfo for the selected Trail
 const setTrail = (trail) => {
@@ -65,6 +67,13 @@ const deleteReview = (reviewId) => {
     return {
         type: DELETE_TRAIL_REVIEW,
         reviewId
+    }
+}
+
+const setAverageReview = (averageReview) => {
+    return {
+        type: SET_AVERAGE_REVIEW,
+        averageReview
     }
 }
 
@@ -147,6 +156,17 @@ export const deleteReviewForTrail = (reviewId) => async (dispatch) => {
     }
 }
 
+export const setAverageReviewForTrail = (trailId) => async (dispatch) => {
+    const response = await csrfFetch('/api/reviews/average/trails/' + trailId, {
+        method: 'GET'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setAverageReview(data));
+    }
+}
+
 export const trailInfoReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
@@ -183,6 +203,10 @@ export const trailInfoReducer = (state = {}, action) => {
         case SET_TRAIL_ACTIVITIES_LIST:
             newState = Object.assign({}, state);
             newState.activities = action.activities
+            return newState;
+        case SET_AVERAGE_REVIEW:
+            newState = Object.assign({}, state);
+            newState.averageReview = action.averageReview
             return newState;
         default:
             return state;

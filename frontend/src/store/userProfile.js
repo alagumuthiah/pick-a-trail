@@ -6,6 +6,7 @@ const SET_LIST = '/userProfile/saved/list';
 const SET_COMPLETED_LIST = '/userProfile/completed';
 const SET_ACTIVITIES_LIST = '/userProfile/list';
 const SET_SELECTED_LIST = '/userProfile/selectedList';
+const SET_USER_AVERAGE_REVIEW = '/userProfile/add/average/review';
 
 //Action creator to set userInfo for the selected User
 const setUser = (user) => {
@@ -48,6 +49,13 @@ const setCurrentList = (lists) => {
     return {
         type: SET_SELECTED_LIST,
         lists
+    }
+}
+
+const setAverageReview = (averageReview) => {
+    return {
+        type: SET_USER_AVERAGE_REVIEW,
+        averageReview
     }
 }
 
@@ -110,6 +118,16 @@ export const setSelectedList = (listId) => async (dispatch) => {
     }
 }
 
+export const setAverageReviewForUser = (userId) => async (dispatch) => {
+    const response = await csrfFetch('/api/reviews/average/users/' + userId, {
+        method: 'GET'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(setAverageReview(data));
+    }
+}
 
 export const userProfileReducer = (state = {}, action) => {
     let newState;
@@ -140,6 +158,10 @@ export const userProfileReducer = (state = {}, action) => {
             newState.selectedList = {};
             newState.selectedList.name = action.lists.selectedList.name;
             newState.selectedList.trailsList = action.lists.trailsInfo;
+            return newState;
+        case SET_USER_AVERAGE_REVIEW:
+            newState = Object.assign({}, state);
+            newState.averageReview = action.averageReview;
             return newState;
         default:
             return state;

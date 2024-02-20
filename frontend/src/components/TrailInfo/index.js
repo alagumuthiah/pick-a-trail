@@ -2,7 +2,7 @@ import './TrailInfo.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { setTrailInfo, setTrailReviews, setTrailCompletedList, setActivitiesList } from '../../store/trailInfo';
+import { setTrailInfo, setTrailReviews, setTrailCompletedList, setActivitiesList, setAverageReviewForTrail } from '../../store/trailInfo';
 import { updateCompletedTrailList, updateSavedTrailList } from '../../store/session';
 
 import { ReviewTrail } from './review';
@@ -18,6 +18,7 @@ const TrailInfo = () => {
     const [activeTab, setActiveTab] = useState(1);
     const savedTrails = useSelector((state) => state.session.savedTrails);
     const completedTrails = useSelector((state) => state.session.completedTrails);
+    const averageReview = useSelector((state) => state.trailInfo.averageReview);
     const activeTabStyle = {
         'background-color': '#749c4d',
         'font-weight': 'bold'
@@ -37,6 +38,12 @@ const TrailInfo = () => {
 
         //to set the reviews given for the selected trail
         dispatch(setTrailReviews(trailId))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
+        // to set avergae review for a trail
+        dispatch(setAverageReviewForTrail(trailId))
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);
@@ -77,7 +84,7 @@ const TrailInfo = () => {
     let content;
     switch (activeTab) {
         case 1:
-            content = <ReviewTrail />;
+            content = <><h3>Average:{averageReview?.average}</h3><ReviewTrail /></>;
             break;
         case 2:
             content = <p>Photos</p>;

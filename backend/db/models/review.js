@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     starsReview: {
       type: DataTypes.ENUM,
       values: ['1', '2', '3', '4', '5'],
-      field: 'starsReview'
+      field: 'starsReview',
     },
     comment: DataTypes.TEXT,
     createdAt: {

@@ -3,6 +3,7 @@ import './Review.css';
 
 const Reviews = () => {
     const userReviews = useSelector((state) => state.userProfile.reviews);
+    const averageReview = useSelector((state) => state.userProfile.averageReview);
     if (userReviews?.length === 0) {
         return (
             <h3>No Review posted by this user</h3>
@@ -21,7 +22,7 @@ const Reviews = () => {
         return (
             <div>
                 <h2> Reviews</h2 >
-                <p>Placeholder to display average review of all the reviews given by the user</p>
+                <p>Average: {averageReview.average}</p>
                 <ul>
                     {reviewsFormat}
                 </ul>

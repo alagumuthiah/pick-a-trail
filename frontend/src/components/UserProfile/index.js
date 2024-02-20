@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList } from '../../store/userProfile';
+import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList, setAverageReviewForUser } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
 //use Effect runs only when navigating through community, it doesn't navigate when the button is clicked from navigation bar
@@ -33,6 +33,12 @@ const UserProfile = () => {
 
         //to set the reviews given by the selected user in the store
         dispatch(setUserReviews(userId))
+            .catch(async (res) => {
+                console.log('ERROR');
+                console.log(res);
+            });
+
+        dispatch(setAverageReviewForUser(userId))
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);
