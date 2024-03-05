@@ -57,6 +57,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.STRING), //validation to be added, the array values has to be one of the following - ['Dog friendly', 'hiking', 'forest', 'lake', 'falls']
 
     },
+    latitude: {
+      type: DataTypes.DECIMAL(10, 6),
+      allowNull: false,
+      defaultValue: 47.608013
+    },
+    longitude: {
+      type: DataTypes.DECIMAL(10, 6),
+      allowNull: false,
+      defaultValue: -122.335167
+    },
     createdAt: {
       type: DataTypes.DATE,
       field: 'createdAt'

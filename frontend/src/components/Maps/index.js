@@ -1,14 +1,15 @@
 import GoogleMapReact from 'google-map-react';
 
-const StaticMap = () => {
+const StaticMap = (props) => {
     //static coordinates is given, have to store it in the db and use the coordinates dynamically
     const defaultProps = {
         center: {
-            lat: 47.608013,
-            lng: -122.335167
+            lat: parseFloat(props.latitude),
+            lng: parseFloat(props.longitude)
         },
-        zoom: 12
+        zoom: 14
     };
+    console.log(defaultProps);
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
     return (
         // set the container height explicitly

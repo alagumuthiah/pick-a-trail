@@ -102,7 +102,7 @@ const TrailInfo = () => {
         return (
 
             <div className="trail-info-card">
-                <StaticMap />
+                <StaticMap latitude={trailInfo.latitude} longitude={trailInfo.longitude} />
                 <div className="trail-info">
                     <h2>{trailInfo.name} &nbsp; &nbsp;<button onClick={handleSavedTrail}>{savedTrails && savedTrails.indexOf(trailInfo.id) === -1 ? <i className='fa-regular fa-bookmark'></i> : <i className='fa-solid fa-bookmark'></i>} </button></h2>
                     <button className="button-style" onClick={handleCompleteTrail}>{completedTrails.indexOf(trailInfo.id) === -1 ? 'Add to Completed' : 'Remove from Completed'}</button>
