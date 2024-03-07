@@ -2,7 +2,7 @@ import './TrailInfo.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { setTrailInfo, setTrailReviews, setTrailCompletedList, setActivitiesList, setAverageReviewForTrail } from '../../store/trailInfo';
+import { setTrailCompletedList, setTrailProfile } from '../../store/trailInfo';
 import { updateCompletedTrailList, updateSavedTrailList } from '../../store/session';
 
 import { ReviewTrail } from './review';
@@ -31,42 +31,21 @@ const TrailInfo = () => {
     useEffect(() => {
         console.log('Inside useEffect', trailId);
         //to set trailInfo
-        dispatch(setTrailInfo(trailId))
+        dispatch(setTrailProfile(trailId))
             .catch(async (res) => {
                 console.log(res);
             });
-
-        //to set the reviews given for the selected trail
-        dispatch(setTrailReviews(trailId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-        // to set avergae review for a trail
-        dispatch(setAverageReviewForTrail(trailId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-        // to set the list of users who have completed the selected trail
-        dispatch(setTrailCompletedList(trailId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-        //to set the activities done for the selected trail
-        dispatch(setActivitiesList(trailId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-
     }, [dispatch, trailId]);
+
     const handleCompleteTrail = () => {
-        dispatch(updateCompletedTrailList(trailInfo.id))
+        dispatch(updateCompletedTrailList(trailInfo.id)) //updating the completed in the session store and database
+            .then(() => {
+                dispatch(setTrailCompletedList(trailInfo.id)) //refreshing the completed in the trailInfo
+                    .catch(async (res) => {
+                        console.log('ERROR');
+                        console.log(res);
+                    })
+            })
             .catch(async (res) => {
                 console.log('ERROR');
                 console.log(res);

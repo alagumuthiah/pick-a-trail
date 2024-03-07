@@ -79,12 +79,16 @@ const setAverageReview = (averageReview) => {
 
 // //redux thunk is used to dispatch asynchronous action. The setTrailInfo is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
-export const setTrailInfo = (trailId) => async (dispatch) => {
+export const setTrailProfile = (trailId) => async (dispatch) => {
     const response = await csrfFetch('/api/trails/' + trailId);
     if (response.ok) {
         const data = await response.json();
         console.log(data);
         dispatch(setTrail(data));
+        dispatch(setTrailReviews(trailId));
+        dispatch(setAverageReviewForTrail(trailId));
+        dispatch(setTrailCompletedList(trailId));
+        dispatch(setActivitiesList(trailId));
     }
 }
 
@@ -128,6 +132,7 @@ export const addReviewForTrail = (trailId, body) => async (dispatch) => {
         const data = await response.json();
         console.log(data);
         dispatch(addReview(data));
+        dispatch(setAverageReviewForTrail(data.trailId));
     }
 }
 
@@ -142,6 +147,7 @@ export const updateReviewForTrail = (reviewId, body) => async (dispatch) => {
         const data = await response.json();
         console.log(data);
         dispatch(updateReview(data));
+        dispatch(setAverageReviewForTrail(data.trailId));
     }
 }
 
