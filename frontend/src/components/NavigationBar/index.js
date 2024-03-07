@@ -1,8 +1,9 @@
 import './NavigationBar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from '../../store/session';
-import { useState } from 'react';
+import { logoutUser, restoreSessionUser } from '../../store/session';
+import { useState, useEffect } from 'react';
+import { setUserProfile } from '../../store/userProfile';
 
 export default function NavigationBar() {
     const sessionUser = useSelector((state) => state.session.user);
@@ -28,6 +29,20 @@ export default function NavigationBar() {
         console.log('Inside load profile , button clicked');
         navigate("/members/" + sessionUser.firstName + '-' + sessionUser.lastName, { state: { id: sessionUser.id } });
     }
+
+    useEffect(() => {
+        console.log('Navigation use Effect executed');
+        dispatch(restoreSessionUser())
+            .catch(async (res) => {
+                console.log(res);
+            })
+        const userId = sessionStorage.getItem('userId');
+
+        console.log(userId);
+        if (userId) {
+            dispatch(setUserProfile(userId));
+        }
+    }, []);
 
     return (
 

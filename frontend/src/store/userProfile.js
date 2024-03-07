@@ -61,13 +61,16 @@ const setAverageReview = (averageReview) => {
 
 // //redux thunk is used to dispatch asynchronous action. The signUpUser is a redux thunk that returns a function with dispatch as the argument, so it can dispatch asynchronous calls
 
-export const setUserInfo = (userId) => async (dispatch) => {
-    console.log('Inside UserInfo');
+export const setUserProfile = (userId) => async (dispatch) => {
     const response = await csrfFetch('/api/users/' + userId);
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
         dispatch(setUser(data));
+        dispatch(setUserReviews(userId));
+        dispatch(setAverageReviewForUser(userId));
+        dispatch(setCompletedList(userId));
+        dispatch(setActivitiesList(userId));
+        dispatch(setSavedList(userId));
     }
 }
 

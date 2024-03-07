@@ -9,7 +9,8 @@ const Reviews = () => {
             <h3>No Review posted by this user</h3>
         )
     } else {
-        let reviewsFormat = userReviews.map((review) => {
+        let reviewsFormat = null;
+        reviewsFormat = userReviews?.map((review) => {
             return (
                 <div key={review.id} className="review-section">
                     <h3>{review.Trail.name}</h3>
@@ -22,7 +23,7 @@ const Reviews = () => {
         return (
             <div>
                 <h2> Reviews</h2 >
-                <p>Average: {averageReview.average}</p>
+                <p>Average: {averageReview?.average}</p>
                 <ul>
                     {reviewsFormat}
                 </ul>

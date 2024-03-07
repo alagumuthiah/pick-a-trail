@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
-    static getCurrentUserById(id) {
-      return User.scope("currentUser").findByPk(id);
+    static async getCurrentUserById(id) {
+      return await User.scope("currentUser").findByPk(id);
     }
 
     static async login({ credential, password }) {

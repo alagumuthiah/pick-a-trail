@@ -2,7 +2,7 @@ import './UserProfile.css';
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo, setUserReviews, setCompletedList, setActivitiesList, setSavedList, setAverageReviewForUser } from '../../store/userProfile';
+import { setUserProfile } from '../../store/userProfile';
 
 //generic component for display data using the current user/ any user in the community
 //use Effect runs only when navigating through community, it doesn't navigate when the button is clicked from navigation bar
@@ -24,45 +24,15 @@ const UserProfile = () => {
         'color': 'white'
     }
     useEffect(() => {
-        console.log('INSIDE USER use Effect');
-        //to set the userInfo in the store
-        dispatch(setUserInfo(userId))
-            .catch(async (res) => {
-                console.log(res);
-            });
+        //to set the userProfile in the store
+        if (userId) {
+            dispatch(setUserProfile(userId))
+                .catch(async (res) => {
+                    console.log(res);
+                });
+            sessionStorage.setItem('userId', userId);
+        }
 
-        //to set the reviews given by the selected user in the store
-        dispatch(setUserReviews(userId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-        dispatch(setAverageReviewForUser(userId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-        //to set the reviews given by the selected user in the store
-        dispatch(setCompletedList(userId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-
-        //to set the activities by the selected user in the store
-        dispatch(setActivitiesList(userId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
-        //to set the list saved by the selected user in the store
-        dispatch(setSavedList(userId))
-            .catch(async (res) => {
-                console.log('ERROR');
-                console.log(res);
-            });
         return () => {
             console.log("Clean up function");
         }

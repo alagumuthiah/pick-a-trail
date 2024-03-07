@@ -88,9 +88,12 @@ export const setSessionUser = (user) => async (dispatch) => {
 export const restoreSessionUser = () => async (dispatch) => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
-    dispatch(setUser(data.user));
-    dispatch(setSavedTrailList(data.user.id));
-    dispatch(setCompletedTrailList(data.user.id));
+    if (data?.user?.id) {
+        dispatch(setUser(data.user));
+        dispatch(setSavedTrailList(data.user.id));
+        dispatch(setCompletedTrailList(data.user.id));
+    }
+
 }
 
 export const logoutUser = () => async (dispatch) => {
@@ -98,7 +101,7 @@ export const logoutUser = () => async (dispatch) => {
         method: 'DELETE'
     });
     if (response.ok) {
-        const data = await response.json();
+        await response.json();
         dispatch(removeUser());
         dispatch(removeSavedList());
         dispatch(removeCompletedList());
