@@ -5,7 +5,7 @@ const { requireAuth } = require('../../utils/auth');
 
 const { Trail, List } = require('../../db/models');
 
-router.get('/users/:userId', requireAuth, async (req, res, next) => {
+router.get('/users/:userId', async (req, res, next) => {
 
     let lists = await List.scope('displayList').findAll({
         where: {

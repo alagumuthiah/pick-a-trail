@@ -12,7 +12,6 @@ const UserProfile = () => {
     const userInfo = useSelector((state) => state.userProfile.user);
     const location = useLocation();
     const userId = location.state?.id;
-    console.log(userId);
     const [activeTab, setActiveTab] = useState();
     const activeLinkStyle = {
         'backgroundColor': '#569d0f',
@@ -36,7 +35,7 @@ const UserProfile = () => {
         return () => {
             console.log("Clean up function");
         }
-    }, []);
+    }, [userId]);
 
     return (
         <div className="profile-page">

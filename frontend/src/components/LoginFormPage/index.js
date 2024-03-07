@@ -29,9 +29,8 @@ export default function Login() {
 
     useEffect(() => {
         if (sessionUser) {
-            console.log(state);
             const intendedRoute = (state && state.from) || '/';
-            navigate(intendedRoute);
+            navigate(intendedRoute, { state: state.from.state });
         }
     }, [sessionUser, navigate]);
 
